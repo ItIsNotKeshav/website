@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand: 27 96% 61%;
+    --brand-foreground: 31 97% 72%;
+  }
+
+  .dark {
+    --brand: 31 97% 72%;
+    --brand-foreground: 27 96% 61%
+  }
+}
+
+@layer utilities {
+  .glow-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow-effect::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle,
+        hsl(var(--brand) / 0.3),
+        transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .glow-effect:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Dark theme as default - sophisticated near-black */
+    --background: 220 20% 2%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 15% 6%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 15% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Cyan/Teal primary */
+    --primary: 185 80% 50%;
+    --primary-foreground: 220 20% 2%;
+
+    --secondary: 220 15% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 220 15% 12%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 185 60% 40%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 15%;
+    --input: 220 15% 15%;
+    --ring: 185 80% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 15% 4%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 185 80% 50%;
+    --sidebar-primary-foreground: 220 20% 2%;
+    --sidebar-accent: 220 15% 10%;
+    --sidebar-accent-foreground: 210 40% 90%;
+    --sidebar-border: 220 15% 12%;
+    --sidebar-ring: 185 80% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
