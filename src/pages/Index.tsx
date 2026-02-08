@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion, useAnimation, useInView } from "framer-motion";
-import Navbar from "@/components/ui/navbar";
 import { Button } from "@/components/ui/button";
 import AnimatedButton from "@/components/ui/animated-button";
 import { Glow } from "@/components/ui/glow";
@@ -86,7 +85,55 @@ export default function Index() {
         />
       </div>
 
-      <Navbar />
+      <header className="relative z-50 w-full overflow-visible">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-8 flex h-20 items-center justify-between">
+          <a href="#" className="flex items-center gap-2">
+            <span className="font-groote text-3xl font-bold tracking-tight">prmpt</span>
+          </a>
+
+          <nav className="hidden md:flex items-center space-x-8">
+            {navigationItems.map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                className="text-sm font-mono text-muted-foreground hover:text-cyan-400 transition-colors"
+              >
+                {item.title}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center space-x-4">
+            <div className="hidden md:inline-flex pr-1">
+              <AnimatedButton text="Join Waitlist" onClick={() => { }} />
+            </div>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent>
+                <nav className="flex flex-col gap-6 mt-6">
+                  {navigationItems.map((item) => (
+                    <a
+                      key={item.title}
+                      href={item.href}
+                      className="text-sm font-mono text-foreground hover:text-cyan-400 transition-colors"
+                    >
+                      {item.title}
+                    </a>
+                  ))}
+                  <Button className="cursor-pointer rounded-none bg-cyan-500 hover:bg-cyan-600 font-mono w-full">
+                    GET STARTED <ArrowRight className="ml-1 w-4 h-4" />
+                  </Button>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </header>
 
       <main className="relative z-10 text-foreground">
         {/* HERO SECTION */}
@@ -118,7 +165,7 @@ export default function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0, duration: 0.6 }}
-              className="mx-auto mt-12 max-w-[800px] text-xl sm:text-2xl font-medium text-[#F5F5F5] font-mono leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+              className="mx-auto mt-8 max-w-[800px] text-xl sm:text-2xl font-medium text-[#F5F5F5] font-mono leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
             >
               Make your desktop smarter. Prompt is an AI desktop assistant that optimizes your workflow locally.
             </motion.p>
@@ -127,7 +174,7 @@ export default function Index() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5, duration: 0.6 }}
-              className="mt-20 flex flex-wrap justify-center gap-6"
+              className="mt-10 flex flex-wrap justify-center gap-6"
             >
               {labels.map((feature, index) => (
                 <motion.div
@@ -150,7 +197,7 @@ export default function Index() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.0, duration: 0.6 }}
-              className="mt-32 w-full max-w-lg"
+              className="mt-16 w-full max-w-lg"
             >
               <div className="flex items-center justify-center gap-2 mb-6 text-muted-foreground font-mono text-sm">
                 <span className="relative flex h-2 w-2">
@@ -164,8 +211,8 @@ export default function Index() {
           </div>
         </section>
 
-        {/* Features Section */}
-        <div id="features" className="container mx-auto px-4 py-24 sm:py-32">
+        {/* FEATURES SECTION - Inspired by Reference Image 1 */}
+        <section id="features" className="container mx-auto px-4 py-24" ref={ref}>
           <div className="mb-16">
             <h2 className="text-3xl md:text-5xl font-mono font-bold tracking-tight text-white/90">
               Engineered to perfection
@@ -177,8 +224,7 @@ export default function Index() {
 
           <motion.div
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             className="grid md:grid-cols-3 gap-8"
           >
@@ -186,8 +232,7 @@ export default function Index() {
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{
                   delay: 0.2 + (index * 0.15),
                   duration: 0.5
@@ -203,7 +248,7 @@ export default function Index() {
                   </p>
                 </div>
 
-                {/* Visual Placeholder Area */}
+                {/* Visual Placeholder Area - Inspired by reference screenshots */}
                 <div className="w-full h-48 px-8 pb-8">
                   <div className={`w-full h-full rounded-lg border ${feature.visual} flex items-center justify-center relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500`}>
                     <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors" />
@@ -217,42 +262,6 @@ export default function Index() {
               </motion.div>
             ))}
           </motion.div>
-        </div>
-
-        {/* About Us Section */}
-        <section id="about-us" className="container mx-auto px-6 py-24 sm:py-32 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl mx-auto text-center space-y-12"
-          >
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
-                Who We Are
-              </h2>
-              <div className="h-1 w-20 bg-cyan-500/50 mx-auto rounded-full" />
-            </div>
-
-            <div className="space-y-8 text-lg md:text-xl text-zinc-300 leading-relaxed font-light">
-              <p>
-                In sheer pain of watching everyone scramble the web to search for tools that fit their specific need, we put them all in one basket and are delivering them to your doorstep.
-              </p>
-              <p>
-                It all began when one of us was creating a similar product. We realized that there were no tools available that could do things for us quickly and easily. So, we decided to create our own.
-              </p>
-            </div>
-
-            <div className="pt-8">
-              <p className="font-mono text-sm text-cyan-400 tracking-widest uppercase">
-                Brought to you by Aarush and Prabhat
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Background decoration */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-3xl -z-10 pointer-events-none" />
         </section>
 
         {/* BIG CTA BANNER - Inspired by Reference Image 3 */}
@@ -287,6 +296,6 @@ export default function Index() {
           </div>
         </footer>
       </main>
-    </div >
+    </div>
   );
 }
