@@ -95,6 +95,34 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 210 40% 90%;
     --sidebar-border: 220 15% 12%;
     --sidebar-ring: 185 80% 50%;
+
+    /* Brutalist button variables — matched to V10 theme */
+    --main: #1A1A1A;
+    --overlay: rgba(0, 0, 0, 0.8);
+    --bg: #F5F5F0;
+    --bw: #fff;
+    --blank: #1A1A1A;
+    --text: #1A1A1A;
+    --mtext: #fff;
+    --ring-offset: #fff;
+    --border-radius: 5px;
+    --box-shadow-x: 4px;
+    --box-shadow-y: 4px;
+    --reverse-box-shadow-x: -4px;
+    --reverse-box-shadow-y: -4px;
+    --base-font-weight: 500;
+    --heading-font-weight: 700;
+    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px #1A1A1A;
+  }
+
+  .dark {
+    --bg: #272933;
+    --bw: #212121;
+    --blank: #fff;
+    --text: #e6e6e6;
+    --mtext: #000;
+    --ring-offset: #000;
+    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
   }
 }
 
