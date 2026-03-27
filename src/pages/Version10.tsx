@@ -8,7 +8,6 @@ import {
   Cpu,
   Check,
   X,
-  Leaf,
   Mail,
   Users,
   Monitor,
@@ -91,7 +90,7 @@ function WaitlistCard() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const LAUNCH_DATE = new Date("2026-02-25T00:00:00").getTime();
+  const LAUNCH_DATE = new Date("2026-04-01T00:00:00").getTime();
 
   const calcTimeLeft = () => {
     const now = Date.now();
@@ -390,13 +389,7 @@ export default function Version10() {
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
               className="flex items-center gap-3"
             >
-              <Leaf className="w-7 h-7 text-[#2563EB]" />
-              <span
-                className="text-2xl font-black text-[#1A1A1A]"
-                style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif" }}
-              >
-                Prmpt
-              </span>
+              <img src="/logos/dark-logo-svg.svg" alt="Prmpt logo" className="h-10 w-auto" />
             </a>
 
             {/* Center — Pill with nav links only */}
@@ -433,10 +426,7 @@ export default function Version10() {
             <div className="flex items-center justify-between">
               <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 className="flex items-center gap-2.5">
-                <Leaf className="w-6 h-6 text-[#2563EB]" />
-                <span className="text-xl font-black text-[#1A1A1A]" style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif" }}>
-                  Prmpt
-                </span>
+                <img src="/logos/dark-logo-svg.svg" alt="Prmpt logo" className="h-9 w-auto" />
               </a>
               <button
                 className="text-[#71717A] p-2 bg-white/80 backdrop-blur-md border border-[#E5E5E0]/60 rounded-full shadow-sm"
@@ -768,7 +758,7 @@ export default function Version10() {
               {/* Left — Contact info */}
               <div>
                 <div className="flex items-center gap-2 mb-6">
-                  <Leaf className="w-5 h-5 text-[#2563EB]" />
+                  <img src="/logos/dark-logo-svg.svg" alt="Prmpt logo" className="h-8 w-auto brightness-0 invert" />
                   <span className="text-xl text-white font-semibold"
                     style={{ fontFamily: "'Lora', serif" }}>
                     Prmpt
@@ -785,11 +775,11 @@ export default function Version10() {
                   <a href="#" className="block hover:text-[#2563EB] transition-colors">
                     💬 Join our discord server
                   </a>
-                  <a href="#" className="block hover:text-[#2563EB] transition-colors">
-                    𝕏 @thisisPrompt
+                  <a href="https://x.com/TryPrmpt" target="_blank" rel="noopener noreferrer" className="block hover:text-[#2563EB] transition-colors">
+                    𝕏 @TryPrmpt
                   </a>
-                  <a href="#" className="block hover:text-[#2563EB] transition-colors">
-                    📷 @prompt.dev
+                  <a href="https://www.instagram.com/tryprmpt/" target="_blank" rel="noopener noreferrer" className="block hover:text-[#2563EB] transition-colors">
+                    📷 @tryprmpt
                   </a>
                 </div>
               </div>
