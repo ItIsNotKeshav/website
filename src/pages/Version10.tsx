@@ -50,6 +50,7 @@ const NAV_ITEMS = [
   { title: "Early Access", href: "#early-access-v10" },
   { title: "About", href: "#about-v10" },
   { title: "Contact", href: "#contact-v10" },
+  { title: "Help & Docs", href: "/help", external: true },
 ];
 
 const FEATURES = [
@@ -398,7 +399,7 @@ export default function Version10() {
                 <a
                   key={item.title}
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
+                  onClick={item.external ? undefined : (e) => handleNavClick(e, item.href)}
                   className="text-base font-semibold text-[#1A1A1A]/80 hover:text-[#1A1A1A] px-6 py-2.5 rounded-full transition-colors hover:bg-[#F5F5F0]/80"
                 >
                   {item.title}
@@ -447,7 +448,7 @@ export default function Version10() {
                   <a
                     key={item.title}
                     href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
+                    onClick={item.external ? undefined : (e) => handleNavClick(e, item.href)}
                     className="block py-3 text-base font-semibold text-[#1A1A1A]/80 hover:text-[#1A1A1A] border-b border-[#E5E5E0]/40 last:border-0 transition-colors"
                   >
                     {item.title}
