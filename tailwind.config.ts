@@ -59,6 +59,9 @@ export default {
         },
         brand: "hsl(var(--brand))",
         "brand-foreground": "hsl(var(--brand-foreground))",
+        surface: "hsl(var(--surface))",
+        "surface-hover": "hsl(var(--surface-hover))",
+        emerald: "hsl(var(--emerald))",
         // Brutalist button colors
         main: 'var(--main)',
         overlay: 'var(--overlay)',

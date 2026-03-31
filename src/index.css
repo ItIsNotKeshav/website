@@ -15,11 +15,6 @@
     --brand: 27 96% 61%;
     --brand-foreground: 31 97% 72%;
   }
-
-  .dark {
-    --brand: 31 97% 72%;
-    --brand-foreground: 27 96% 61%
-  }
 }
 
 @layer utilities {
@@ -38,7 +33,7 @@
     height: 200%;
     transform: translate(-50%, -50%);
     background: radial-gradient(circle,
-        hsl(var(--brand) / 0.3),
+        hsl(var(--accent) / 0.4),
         transparent 50%);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -55,56 +50,59 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Dark theme as default - sophisticated near-black */
-    --background: 220 20% 2%;
-    --foreground: 210 40% 98%;
+    /* Warm Peach light theme */
+    --background: 23 100% 96%;
+    --foreground: 217 33% 17%;
 
-    --card: 220 15% 6%;
-    --card-foreground: 210 40% 98%;
+    --card: 20 100% 98%;
+    --card-foreground: 217 33% 17%;
 
-    --popover: 220 15% 6%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 20 100% 98%;
+    --popover-foreground: 217 33% 17%;
 
-    /* Cyan/Teal primary */
-    --primary: 185 80% 50%;
-    --primary-foreground: 220 20% 2%;
+    --primary: 220 10% 15%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 12%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 20 60% 95%;
+    --secondary-foreground: 215 20% 35%;
 
-    --muted: 220 15% 12%;
-    --muted-foreground: 215 20% 55%;
+    --muted: 20 50% 94%;
+    --muted-foreground: 215 20% 38%;
 
-    --accent: 185 60% 40%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 20 35% 87%;
+    --accent-foreground: 217 33% 17%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 68% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 15%;
-    --input: 220 15% 15%;
-    --ring: 185 80% 50%;
+    --border: 18 58% 88%;
+    --input: 21 52% 81%;
+    --ring: 220 10% 15%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 220 15% 4%;
-    --sidebar-foreground: 210 40% 90%;
-    --sidebar-primary: 185 80% 50%;
-    --sidebar-primary-foreground: 220 20% 2%;
-    --sidebar-accent: 220 15% 10%;
-    --sidebar-accent-foreground: 210 40% 90%;
-    --sidebar-border: 220 15% 12%;
-    --sidebar-ring: 185 80% 50%;
+    --surface: 20 100% 97%;
+    --surface-hover: 19 100% 94%;
+    --emerald: 220 10% 15%;
 
-    /* Brutalist button variables — matched to V10 theme */
-    --main: #1A1A1A;
-    --overlay: rgba(0, 0, 0, 0.8);
-    --bg: #F5F5F0;
-    --bw: #fff;
-    --blank: #1A1A1A;
-    --text: #1A1A1A;
+    --sidebar-background: 21 100% 95%;
+    --sidebar-foreground: 217 33% 17%;
+    --sidebar-primary: 220 10% 15%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 20 35% 87%;
+    --sidebar-accent-foreground: 217 33% 17%;
+    --sidebar-border: 18 58% 88%;
+    --sidebar-ring: 220 10% 15%;
+
+    /* Brutalist button variables — matched to Warm Peach theme */
+    --main: #232629;
+    --overlay: rgba(35, 38, 41, 0.8);
+    --bg: #FFF4ED;
+    --bw: #FFF9F6;
+    --blank: #232629;
+    --text: #1E2A3B;
     --mtext: #fff;
-    --ring-offset: #fff;
+    --ring-offset: #FFF4ED;
     --border-radius: 5px;
     --box-shadow-x: 4px;
     --box-shadow-y: 4px;
@@ -112,17 +110,7 @@ All colors MUST be HSL.
     --reverse-box-shadow-y: -4px;
     --base-font-weight: 500;
     --heading-font-weight: 700;
-    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px #1A1A1A;
-  }
-
-  .dark {
-    --bg: #272933;
-    --bw: #212121;
-    --blank: #fff;
-    --text: #e6e6e6;
-    --mtext: #000;
-    --ring-offset: #000;
-    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
+    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px #232629;
   }
 }
 

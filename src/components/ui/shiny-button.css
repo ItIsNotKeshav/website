@@ -25,11 +25,11 @@
 }
 
 .shiny-cta {
-    --shiny-cta-bg: #000000;
-    --shiny-cta-bg-subtle: #1a1818;
+    --shiny-cta-bg: #232629;
+    --shiny-cta-bg-subtle: #1E2A3B;
     --shiny-cta-fg: #ffffff;
-    --shiny-cta-highlight: blue;
-    --shiny-cta-highlight-subtle: #8484ff;
+    --shiny-cta-highlight: #E8C8B7;
+    --shiny-cta-highlight-subtle: #F2D9CE;
     --animation: gradient-angle linear infinite;
     --duration: 3s;
     --shadow-size: 2px;

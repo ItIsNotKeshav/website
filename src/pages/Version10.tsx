@@ -32,23 +32,23 @@ import { toast } from "sonner";
  *   5. Waitlist CTA — centered, concentric circles bg, email input
  *   6. Footer — dark bg, split: contact info left, decorative card right
  *
- * COLOR PALETTE (V10/V9 hybrid):
- *   Background:    Stone White    #F5F5F0
- *   Cards:         Pure White     #FFFFFF
- *   Text primary:  Graphite       #1A1A1A
- *   Text muted:    Slate          #71717A
- *   Accent:        Electric Blue  #2563EB
- *   Accent dark:   Deep Blue      #1D4ED8
- *   Borders:       Mist           #E5E5E0
- *   Dark surface:  Charcoal       #111116
+ * COLOR PALETTE (Warm Peach):
+ *   Background:    Warm Peach     #FFF4ED
+ *   Cards:         Cream White    #FFF9F6
+ *   Text primary:  Navy           #1E2A3B
+ *   Text muted:    Slate Blue     #526070
+ *   Primary:       Charcoal       #232629
+ *   Borders:       Peach Mist     #F2D9CE
+ *   Accent:        Blush          #E8D0C3
+ *   Dark surface:  Charcoal       #232629
  *
  * Typography: Lora (serif display) + DM Sans (body sans)
  */
 
 const NAV_ITEMS = [
   { title: "Features", href: "#features-v10" },
-  { title: "Early Access", href: "#early-access-v10" },
   { title: "About", href: "#about-v10" },
+  { title: "Early Access", href: "#early-access-v10" },
   { title: "Contact", href: "#contact-v10" },
   { title: "Help & Docs", href: "/help", external: true },
 ];
@@ -179,23 +179,23 @@ function WaitlistCard() {
   return (
     <div className="relative">
       {/* Glow behind card */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#2563EB]/15 to-[#60A5FA]/15 blur-2xl scale-110 -z-10" />
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#E8C8B7]/25 to-[#F2D9CE]/20 blur-2xl scale-110 -z-10" />
 
-      <div className="relative backdrop-blur-xl bg-white/40 border-2 border-[#E5E5E0]/60 rounded-[2rem] p-10 md:p-14 w-full max-w-[580px] mx-auto shadow-2xl shadow-[#1A1A1A]/5">
+      <div className="relative backdrop-blur-xl bg-[#FFF9F6]/50 border-2 border-[#F2D9CE]/60 rounded-[2rem] p-10 md:p-14 w-full max-w-[580px] mx-auto shadow-2xl shadow-[#1E2A3B]/5">
         {/* Inner gradient overlay */}
-        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#F5F5F0]/80 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#FFF4ED]/80 to-transparent pointer-events-none" />
 
         <div className="relative z-10">
           {!isSubmitted ? (
             <>
               <div className="mb-10 text-center">
                 <h2
-                  className="text-4xl md:text-5xl text-[#2563EB] mb-5 tracking-wide font-bold"
+                  className="text-4xl md:text-5xl text-[#232629] mb-5 tracking-wide font-bold"
                   style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif" }}
                 >
                   Join the waitlist
                 </h2>
-                <p className="text-[#71717A] text-lg md:text-xl leading-relaxed font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-[#526070] text-lg md:text-xl leading-relaxed font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   Get early access to Prmpt — the intelligent<br />
                   AI prompt assistant built for modern creators
                 </p>
@@ -210,13 +210,13 @@ function WaitlistCard() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={isLoading}
-                    className="flex-1 bg-white/60 border-2 border-[#E5E5E0] text-[#1A1A1A] placeholder:text-[#71717A]/40 focus:border-[#2563EB]/50 focus:ring-2 focus:ring-[#2563EB]/10 focus:outline-none h-14 px-5 rounded-xl backdrop-blur-sm text-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 bg-[#FFF9F6]/70 border-2 border-[#F2D9CE] text-[#1E2A3B] placeholder:text-[#526070]/40 focus:border-[#232629]/50 focus:ring-2 focus:ring-[#232629]/10 focus:outline-none h-14 px-5 rounded-xl backdrop-blur-sm text-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   />
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="h-14 px-8 bg-[#1A1A1A] hover:bg-[#2563EB] text-white font-bold cursor-pointer rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-lg whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="h-14 px-8 bg-[#1E2A3B] hover:bg-[#232629] text-white font-bold cursor-pointer rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-lg whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {isLoading ? (
@@ -243,12 +243,12 @@ function WaitlistCard() {
                   { value: timeLeft.seconds, label: "SECONDS" },
                 ].map((item, i) => (
                   <React.Fragment key={item.label}>
-                    {i > 0 && <div className="text-[#E5E5E0] text-xl font-light">|</div>}
+                    {i > 0 && <div className="text-[#F2D9CE] text-xl font-light">|</div>}
                     <div>
-                      <div className="text-3xl md:text-4xl font-semibold text-[#1A1A1A]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                      <div className="text-3xl md:text-4xl font-semibold text-[#1E2A3B]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                         {item.value}
                       </div>
-                      <div className="text-[11px] text-[#71717A] uppercase tracking-widest mt-1 font-semibold">
+                      <div className="text-[11px] text-[#526070] uppercase tracking-widest mt-1 font-semibold">
                         {item.label}
                       </div>
                     </div>
@@ -266,13 +266,13 @@ function WaitlistCard() {
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center border-2 border-emerald-300 shadow-lg shadow-emerald-100">
                 <Check className="w-10 h-10 text-emerald-600" />
               </div>
-              <h3 className="text-2xl font-bold text-[#1A1A1A] mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              <h3 className="text-2xl font-bold text-[#1E2A3B] mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                 You're on the list! 🎉
               </h3>
-              <p className="text-[#71717A] text-base leading-relaxed mb-2">
+              <p className="text-[#526070] text-base leading-relaxed mb-2">
                 We've sent a welcome email to your inbox.
               </p>
-              <p className="text-[#71717A] text-sm">
+              <p className="text-[#526070] text-sm">
                 Keep an eye out — early access invites are coming soon.
               </p>
             </motion.div>
@@ -372,10 +372,10 @@ export default function Version10() {
       `}</style>
 
       <div
-        className="min-h-screen relative overflow-x-hidden selection:bg-[#2563EB]/12 selection:text-[#1A1A1A]"
+        className="min-h-screen relative overflow-x-hidden selection:bg-[#232629]/12 selection:text-[#1E2A3B]"
         style={{
-          backgroundColor: "#F5F5F0",
-          color: "#1A1A1A",
+          backgroundColor: "#FFF4ED",
+          color: "#1E2A3B",
           fontFamily: "'DM Sans', sans-serif",
         }}
       >
@@ -394,13 +394,13 @@ export default function Version10() {
             </a>
 
             {/* Center — Pill with nav links only */}
-            <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1 bg-white/80 backdrop-blur-md border border-[#E5E5E0]/60 rounded-full px-3 py-2 shadow-lg shadow-[#1A1A1A]/5">
+            <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1 bg-[#FFF9F6]/85 backdrop-blur-md border border-[#F2D9CE]/60 rounded-full px-3 py-2 shadow-lg shadow-[#1E2A3B]/5">
               {NAV_ITEMS.map((item) => (
                 <a
                   key={item.title}
                   href={item.href}
                   onClick={item.external ? undefined : (e) => handleNavClick(e, item.href)}
-                  className="text-base font-semibold text-[#1A1A1A]/80 hover:text-[#1A1A1A] px-6 py-2.5 rounded-full transition-colors hover:bg-[#F5F5F0]/80"
+                  className="text-base font-semibold text-[#1E2A3B]/80 hover:text-[#1E2A3B] px-6 py-2.5 rounded-full transition-colors hover:bg-[#FFF4ED]/80"
                 >
                   {item.title}
                 </a>
@@ -430,7 +430,7 @@ export default function Version10() {
                 <img src="/logos/dark-logo-svg.svg" alt="Prmpt logo" className="h-9 w-auto" />
               </a>
               <button
-                className="text-[#71717A] p-2 bg-white/80 backdrop-blur-md border border-[#E5E5E0]/60 rounded-full shadow-sm"
+                className="text-[#526070] p-2 bg-[#FFF9F6]/85 backdrop-blur-md border border-[#F2D9CE]/60 rounded-full shadow-sm"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -442,14 +442,14 @@ export default function Version10() {
                 initial={{ opacity: 0, y: -8, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className="mt-3 bg-white/90 backdrop-blur-md border border-[#E5E5E0]/60 rounded-2xl px-4 py-3 shadow-xl shadow-[#1A1A1A]/5"
+                className="mt-3 bg-[#FFF9F6]/90 backdrop-blur-md border border-[#F2D9CE]/60 rounded-2xl px-4 py-3 shadow-xl shadow-[#1E2A3B]/5"
               >
                 {NAV_ITEMS.map((item) => (
                   <a
                     key={item.title}
                     href={item.href}
                     onClick={item.external ? undefined : (e) => handleNavClick(e, item.href)}
-                    className="block py-3 text-base font-semibold text-[#1A1A1A]/80 hover:text-[#1A1A1A] border-b border-[#E5E5E0]/40 last:border-0 transition-colors"
+                    className="block py-3 text-base font-semibold text-[#1E2A3B]/80 hover:text-[#1E2A3B] border-b border-[#F2D9CE]/40 last:border-0 transition-colors"
                   >
                     {item.title}
                   </a>
@@ -482,28 +482,28 @@ export default function Version10() {
               <div
                 className="absolute -top-[5%] right-[-5%] w-[550px] h-[550px] md:w-[700px] md:h-[700px] rounded-full blur-[60px] md:blur-[80px]"
                 style={{
-                  background: "radial-gradient(circle, rgba(37,99,235,0.55) 0%, rgba(37,99,235,0.2) 40%, transparent 70%)",
+                  background: "radial-gradient(circle, rgba(240,147,51,0.30) 0%, rgba(232,208,195,0.18) 40%, transparent 70%)",
                   animation: "hero-blob-1 18s ease-in-out infinite",
                 }}
               />
               <div
                 className="absolute top-[10%] -left-[8%] w-[450px] h-[450px] md:w-[600px] md:h-[600px] rounded-full blur-[60px] md:blur-[80px]"
                 style={{
-                  background: "radial-gradient(circle, rgba(96,165,250,0.45) 0%, rgba(37,99,235,0.15) 40%, transparent 70%)",
+                  background: "radial-gradient(circle, rgba(232,200,183,0.40) 0%, rgba(240,147,51,0.12) 40%, transparent 70%)",
                   animation: "hero-blob-2 22s ease-in-out infinite",
                 }}
               />
               <div
                 className="absolute -bottom-[5%] left-[20%] w-[400px] h-[400px] md:w-[550px] md:h-[550px] rounded-full blur-[60px] md:blur-[70px]"
                 style={{
-                  background: "radial-gradient(circle, rgba(147,180,240,0.4) 0%, rgba(96,165,250,0.12) 40%, transparent 65%)",
+                  background: "radial-gradient(circle, rgba(242,217,206,0.45) 0%, rgba(232,200,183,0.15) 40%, transparent 65%)",
                   animation: "hero-blob-3 15s ease-in-out infinite",
                 }}
               />
               <div
                 className="absolute top-[20%] left-[30%] w-[400px] h-[400px] md:w-[550px] md:h-[550px] rounded-full blur-[50px]"
                 style={{
-                  background: "radial-gradient(circle, rgba(37,99,235,0.3) 0%, rgba(96,165,250,0.1) 40%, transparent 60%)",
+                  background: "radial-gradient(circle, rgba(240,147,51,0.18) 0%, rgba(232,208,195,0.10) 40%, transparent 60%)",
                   animation: "hero-shimmer 6s ease-in-out infinite",
                 }}
               />
@@ -516,16 +516,16 @@ export default function Version10() {
               className="relative z-10 max-w-4xl mx-auto"
             >
               <h1
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] tracking-[-0.02em] mb-8 text-[#2563EB]"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] tracking-[-0.02em] mb-8 text-[#232629]"
                 style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif", fontWeight: 500 }}
               >
                 Your AI is only as smart as your prompt
               </h1>
 
-              <p className="text-lg md:text-xl text-[#71717A] max-w-2xl mx-auto leading-relaxed mb-3">
+              <p className="text-lg md:text-xl text-[#526070] max-w-2xl mx-auto leading-relaxed mb-3">
                 Optimize, refine, and manage prompts across all AI tools—without breaking your flow.
               </p>
-              <p className="text-lg md:text-xl text-[#1A1A1A]/70 font-semibold mb-10">
+              <p className="text-lg md:text-xl text-[#1E2A3B]/70 font-semibold mb-10">
                 Stop guessing prompts. Start engineering them.
               </p>
 
@@ -534,27 +534,27 @@ export default function Version10() {
                 <a
                   href="#waitlist-v10"
                   onClick={(e) => handleNavClick(e, "#waitlist-v10")}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#1A1A1A] text-white text-base font-semibold rounded-lg hover:bg-[#2563EB] transition-colors shadow-md"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#1E2A3B] text-white text-base font-semibold rounded-lg hover:bg-[#232629] transition-colors shadow-md"
                 >
                   <Mail className="w-5 h-5" /> Join the waitlist
                 </a>
                 <a
                   href="#about-v10"
                   onClick={(e) => handleNavClick(e, "#about-v10")}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#E5E5E0] text-[#1A1A1A] text-base font-semibold rounded-lg hover:bg-[#d5d5d0] transition-colors"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#F2D9CE] text-[#1E2A3B] text-base font-semibold rounded-lg hover:bg-[#E8C8B7] transition-colors"
                 >
                   <Users className="w-4 h-4" /> Join our community
                 </a>
               </div>
 
-              <p className="text-sm text-[#71717A]/50">
+              <p className="text-sm text-[#526070]/50">
                 Coming soon for Windows and macOS
               </p>
             </motion.div>
           </section>
 
           {/* ━━━━━━━━━━━ FEATURES — Grid Layout ━━━━━━━━━━━ */}
-          <section id="features-v10" className="py-20 border-t border-[#E5E5E0]" ref={ref}>
+          <section id="features-v10" className="py-20 border-t border-[#F2D9CE]" ref={ref}>
             <div className="max-w-7xl mx-auto px-6 md:px-10">
               {/* Header */}
               <div className="mb-16">
@@ -562,7 +562,7 @@ export default function Version10() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.7 }}
-                  className="text-3xl md:text-4xl lg:text-5xl text-[#2563EB] mb-4"
+                  className="text-3xl md:text-4xl lg:text-5xl text-[#232629] mb-4"
                   style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif", fontWeight: 500 }}
                 >
                   Engineered to perfection
@@ -571,7 +571,7 @@ export default function Version10() {
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : {}}
                   transition={{ delay: 0.2, duration: 0.6 }}
-                  className="text-lg text-[#71717A] max-w-xl"
+                  className="text-lg text-[#526070] max-w-xl"
                 >
                   Every feature is purposefully crafted to enhance your productivity
                   and streamline your digital experience.
@@ -590,17 +590,17 @@ export default function Version10() {
                   >
                     {/* Text */}
                     <div className="mb-6">
-                      <h3 className="text-xl font-bold text-[#1A1A1A] mb-3"
+                      <h3 className="text-xl font-bold text-[#1E2A3B] mb-3"
                         style={{ fontFamily: "'DM Sans', sans-serif" }}>
                         {feature.title}
                       </h3>
-                      <p className="text-base text-[#71717A] leading-relaxed">
+                      <p className="text-base text-[#526070] leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
 
                     {/* Screenshot placeholder — bigger aspect ratio */}
-                    <div className="w-full aspect-[16/11] bg-[#1A1A1A] rounded-xl overflow-hidden flex items-center justify-center relative group-hover:shadow-xl group-hover:shadow-[#1A1A1A]/10 transition-shadow duration-500">
+                    <div className="w-full aspect-[16/11] bg-[#1E2A3B] rounded-xl overflow-hidden flex items-center justify-center relative group-hover:shadow-xl group-hover:shadow-[#1E2A3B]/10 transition-shadow duration-500">
                       {/* Simulated UI */}
                       <div className="absolute inset-4 rounded-lg border border-white/5 bg-white/[0.03] flex flex-col">
                         {/* Title bar */}
@@ -618,7 +618,7 @@ export default function Version10() {
                           <div className="w-4/5 h-2 bg-white/5 rounded-full" />
                           <div className="flex-1" />
                           <div className="self-center">
-                            <feature.icon className="w-10 h-10 text-[#2563EB]/30" />
+                            <feature.icon className="w-10 h-10 text-[#232629]/30" />
                           </div>
                         </div>
                       </div>
@@ -629,35 +629,54 @@ export default function Version10() {
             </div>
           </section>
 
-          {/* ━━━━━━━━━━━ WAITLIST CTA ━━━━━━━━━━━ */}
-          <section
-            id="waitlist-v10"
-            className="relative py-28 md:py-36 border-t border-[#E5E5E0] overflow-hidden"
-          >
-            {/* Ambient background blobs for this section */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-              <div
-                className="absolute top-[10%] left-[15%] w-[300px] h-[300px] md:w-[450px] md:h-[450px] rounded-full blur-[80px]"
-                style={{ background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)" }}
-              />
-              <div
-                className="absolute bottom-[5%] right-[10%] w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full blur-[80px]"
-                style={{ background: "radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%)" }}
-              />
-            </div>
+          {/* ━━━━━━━━━━━ ABOUT ━━━━━━━━━━━ */}
+          <section id="about-v10" className="py-20 border-t border-[#F2D9CE]">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
+              <h2
+                className="text-3xl md:text-4xl text-[#232629] mb-8"
+                style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif", fontWeight: 500 }}
+              >
+                About us
+              </h2>
 
-            <div className="relative z-10 px-6 md:px-10 flex items-center justify-center">
-              <WaitlistCard />
+              <div className="max-w-4xl space-y-6">
+                <p className="text-lg md:text-xl text-[#1E2A3B] leading-[1.8] font-medium">
+                  Everyone's running.<br />
+                  Same race. Same finish line.<br />
+                  Another dollar. Another day.
+                </p>
+                <p className="text-lg md:text-xl text-[#1E2A3B] leading-[1.8] font-semibold">
+                  We stepped off the track.
+                </p>
+                <p className="text-lg md:text-xl text-[#1E2A3B]/70 leading-[1.8]">
+                  Idea after idea—nothing stuck.<br />
+                  Nothing meant anything.<br />
+                  Until one project stopped being just a project…<br />
+                  and became a vision.<br />
+                  Something that made us feel alive again.
+                </p>
+                <p className="text-lg md:text-xl text-[#1E2A3B] leading-[1.8] font-medium">
+                  That's how we got here.<br />
+                  Not by following the crowd—<br />
+                  but by building something we actually give a damn about.
+                </p>
+                <p className="text-xl md:text-2xl text-[#232629] leading-[1.8] font-bold mt-8">
+                  Welcome to Prmpt.
+                </p>
+                <p className="text-base md:text-lg text-[#526070] leading-[1.8] italic">
+                  Brought to you by Aarush and Prabhat
+                </p>
+              </div>
             </div>
           </section>
 
           {/* ━━━━━━━━━━━ BETA INVITE / EARLY ACCESS ━━━━━━━━━━━ */}
-          <section id="early-access-v10" className="relative py-28 md:py-36 border-t border-[#E5E5E0] overflow-hidden">
+          <section id="early-access-v10" className="relative py-28 md:py-36 border-t border-[#F2D9CE] overflow-hidden">
             {/* Ambient glow */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
               <div
                 className="absolute top-[20%] left-[50%] -translate-x-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full blur-[100px]"
-                style={{ background: "radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 65%)" }}
+                style={{ background: "radial-gradient(circle, rgba(240,147,51,0.08) 0%, transparent 65%)" }}
               />
             </div>
 
@@ -668,24 +687,24 @@ export default function Version10() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="relative z-10 max-w-2xl mx-auto px-6 md:px-10"
             >
-              <div className="relative backdrop-blur-xl bg-white/50 border border-[#E5E5E0]/60 rounded-[2rem] p-10 md:p-14 shadow-xl shadow-[#1A1A1A]/5 text-center">
+              <div className="relative backdrop-blur-xl bg-[#FFF9F6]/60 border border-[#F2D9CE]/60 rounded-[2rem] p-10 md:p-14 shadow-xl shadow-[#1E2A3B]/5 text-center">
                 {/* Inner gradient overlay */}
-                <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#F5F5F0]/70 via-white/30 to-[#EBF0FF]/40 pointer-events-none" />
+                <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#FFF4ED]/70 via-white/30 to-[#FFF4ED]/40 pointer-events-none" />
 
                 <div className="relative z-10">
                   <h2
-                    className="text-3xl md:text-4xl lg:text-5xl text-[#2563EB] mb-6 font-bold leading-tight"
+                    className="text-3xl md:text-4xl lg:text-5xl text-[#232629] mb-6 font-bold leading-tight"
                     style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif" }}
                   >
                     Help Shape What We're Building
                   </h2>
 
                   <div className="space-y-4 mb-10">
-                    <p className="text-lg md:text-xl text-[#71717A] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                    <p className="text-lg md:text-xl text-[#526070] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                       Your feedback means everything to us.<br />
                       If you'd like early access and want to help shape the product, we'd love to hear from you.
                     </p>
-                    <p className="text-lg md:text-xl text-[#1A1A1A]/70 leading-relaxed font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                    <p className="text-lg md:text-xl text-[#1E2A3B]/70 leading-relaxed font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                       Be among the first to test it, break it, and tell us what actually matters.
                     </p>
                   </div>
@@ -694,9 +713,9 @@ export default function Version10() {
                     href={`https://mail.google.com/mail/?view=cm&fs=1&to=tryprmpt@gmail.com&su=${encodeURIComponent("Early Access Request for Prmpt Beta")}&body=${encodeURIComponent("Hello,\n\nI'd love to request early access to the Prmpt beta.\nI'm interested in exploring the product, testing its features, and sharing feedback to help improve the experience before public launch.\n\nLooking forward to hearing from you.\n\nBest regards.")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 px-10 py-4 text-lg font-bold text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-[#2563EB]/25 hover:-translate-y-0.5"
+                    className="group inline-flex items-center gap-3 px-10 py-4 text-lg font-bold text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-[#232629]/25 hover:-translate-y-0.5"
                     style={{
-                      background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 50%, #2563EB 100%)",
+                      background: "linear-gradient(135deg, #232629 0%, #1E2A3B 50%, #232629 100%)",
                       backgroundSize: "200% 200%",
                       fontFamily: "'DM Sans', sans-serif",
                     }}
@@ -712,49 +731,30 @@ export default function Version10() {
             </motion.div>
           </section>
 
-          {/* ━━━━━━━━━━━ ABOUT ━━━━━━━━━━━ */}
-          <section id="about-v10" className="py-20 border-t border-[#E5E5E0]">
-            <div className="max-w-7xl mx-auto px-6 md:px-10">
-              <h2
-                className="text-3xl md:text-4xl text-[#2563EB] mb-8"
-                style={{ fontFamily: "'Geist Pixel Square', 'Lora', serif", fontWeight: 500 }}
-              >
-                About us
-              </h2>
+          {/* ━━━━━━━━━━━ WAITLIST CTA ━━━━━━━━━━━ */}
+          <section
+            id="waitlist-v10"
+            className="relative py-28 md:py-36 border-t border-[#F2D9CE] overflow-hidden"
+          >
+            {/* Ambient background blobs for this section */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              <div
+                className="absolute top-[10%] left-[15%] w-[300px] h-[300px] md:w-[450px] md:h-[450px] rounded-full blur-[80px]"
+                style={{ background: "radial-gradient(circle, rgba(240,147,51,0.10) 0%, transparent 70%)" }}
+              />
+              <div
+                className="absolute bottom-[5%] right-[10%] w-[350px] h-[350px] md:w-[500px] md:h-[500px] rounded-full blur-[80px]"
+                style={{ background: "radial-gradient(circle, rgba(232,200,183,0.12) 0%, transparent 70%)" }}
+              />
+            </div>
 
-              <div className="max-w-4xl space-y-6">
-                <p className="text-lg md:text-xl text-[#1A1A1A] leading-[1.8] font-medium">
-                  Everyone's running.<br />
-                  Same race. Same finish line.<br />
-                  Another dollar. Another day.
-                </p>
-                <p className="text-lg md:text-xl text-[#1A1A1A] leading-[1.8] font-semibold">
-                  We stepped off the track.
-                </p>
-                <p className="text-lg md:text-xl text-[#1A1A1A]/70 leading-[1.8]">
-                  Idea after idea—nothing stuck.<br />
-                  Nothing meant anything.<br />
-                  Until one project stopped being just a project…<br />
-                  and became a vision.<br />
-                  Something that made us feel alive again.
-                </p>
-                <p className="text-lg md:text-xl text-[#1A1A1A] leading-[1.8] font-medium">
-                  That's how we got here.<br />
-                  Not by following the crowd—<br />
-                  but by building something we actually give a damn about.
-                </p>
-                <p className="text-xl md:text-2xl text-[#2563EB] leading-[1.8] font-bold mt-8">
-                  Welcome to Prmpt.
-                </p>
-                <p className="text-base md:text-lg text-[#71717A] leading-[1.8] italic">
-                  Brought to you by Aarush and Prabhat
-                </p>
-              </div>
+            <div className="relative z-10 px-6 md:px-10 flex items-center justify-center">
+              <WaitlistCard />
             </div>
           </section>
 
           {/* ━━━━━━━━━━━ FOOTER ━━━━━━━━━━━ */}
-          <footer id="contact-v10" style={{ backgroundColor: "#111116" }}>
+          <footer id="contact-v10" style={{ backgroundColor: "#232629" }}>
             <div className="max-w-7xl mx-auto px-6 md:px-10 py-16 grid md:grid-cols-2 gap-12 items-start">
               {/* Left — Contact info */}
               <div>
@@ -773,20 +773,20 @@ export default function Version10() {
 
                 <p className="text-base text-white font-semibold mb-3">Follow for updates</p>
                 <div className="space-y-2 text-base text-white/40">
-                  <a href="#" className="block hover:text-[#2563EB] transition-colors">
+                  <a href="#" className="block hover:text-[#F2D9CE] transition-colors">
                     💬 Join our discord server
                   </a>
-                  <a href="https://x.com/TryPrmpt" target="_blank" rel="noopener noreferrer" className="block hover:text-[#2563EB] transition-colors">
+                  <a href="https://x.com/TryPrmpt" target="_blank" rel="noopener noreferrer" className="block hover:text-[#F2D9CE] transition-colors">
                     𝕏 @TryPrmpt
                   </a>
-                  <a href="https://www.instagram.com/tryprmpt/" target="_blank" rel="noopener noreferrer" className="block hover:text-[#2563EB] transition-colors">
+                  <a href="https://www.instagram.com/tryprmpt/" target="_blank" rel="noopener noreferrer" className="block hover:text-[#F2D9CE] transition-colors">
                     📷 @tryprmpt
                   </a>
                 </div>
               </div>
 
               {/* Right — Decorative hero card */}
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#2563EB]/20 to-[#1D4ED8]/10 border border-white/5 p-10 flex items-end min-h-[280px]">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#E8C8B7]/20 to-[#F2D9CE]/10 border border-white/5 p-10 flex items-end min-h-[280px]">
                 <h3
                   className="relative z-10 text-3xl md:text-4xl text-white/90 leading-tight"
                   style={{ fontFamily: "'Lora', serif", fontWeight: 400 }}
