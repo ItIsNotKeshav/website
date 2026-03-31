@@ -16,7 +16,6 @@ import {
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { ButtonBrutalist } from "@/components/ui/button-brutalist";
-import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 
 /*
@@ -120,50 +119,37 @@ function WaitlistCard() {
     setIsLoading(true);
 
     try {
-      // 1. Check if email already exists
-      const { data: existing } = await supabase
-        .from("waitlist")
-        .select("id")
-        .eq("email", email.toLowerCase().trim())
-        .maybeSingle();
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), name: "" }),
+      });
 
-      if (existing) {
+      const data = await res.json();
+
+      if (res.status === 429) {
+        toast.error("Too many attempts", {
+          description: "Please wait a moment before trying again.",
+        });
+        return;
+      }
+
+      if (!res.ok) {
+        toast.error("Something went wrong", {
+          description: data.error || "Please try again in a moment.",
+        });
+        return;
+      }
+
+      if (data.already_registered) {
         toast.info("You're already on the waitlist!", {
           description: "We'll notify you as soon as we launch.",
         });
-        setIsLoading(false);
         return;
       }
 
-      // 2. Insert email into Supabase "waitlist" table
-      const { error: insertError } = await supabase.from("waitlist").insert({
-        email: email.toLowerCase().trim(),
-        signed_up_at: new Date().toISOString(),
-        source: "landing_page",
-      });
-
-      if (insertError) {
-        console.error("Supabase insert error:", insertError);
-        toast.error("Something went wrong", {
-          description: "Please try again in a moment.",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      // 3. Call Edge Function to send welcome email
-      try {
-        await supabase.functions.invoke("send-welcome-email", {
-          body: { email: email.toLowerCase().trim() },
-        });
-      } catch (emailErr) {
-        // Don't block success — email sending is best-effort
-        console.warn("Welcome email failed (non-blocking):", emailErr);
-      }
-
-      // 4. Show success
       setIsSubmitted(true);
-      toast.success("You're on the list! 🎉", {
+      toast.success("You're on the list!", {
         description: "Check your inbox for a welcome email from us.",
       });
     } catch (err) {

@@ -10,7 +10,17 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-*.local
+
+# Next.js
+.next/
+out/
+
+# Env files — never commit secrets
+.env
+.env.local
+.env.production.local
+.env.development.local
+.env.test.local
 
 # Editor directories and files
 .vscode/*
@@ -23,4 +33,5 @@ dist-ssr
 *.sln
 *.sw?
 
-.env
+# Supabase temp
+supabase/.temp/

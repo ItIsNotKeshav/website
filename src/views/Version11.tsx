@@ -18,7 +18,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 
 const NAV_ITEMS = [
@@ -151,53 +150,36 @@ export default function Version11() {
     setIsLoading(true);
 
     try {
-      const { data: existing } = await supabase
-        .from("waitlist")
-        .select("id")
-        .eq("email", email.toLowerCase().trim())
-        .maybeSingle();
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim(),
+          name: name.trim(),
+        }),
+      });
 
-      if (existing) {
+      const data = await res.json();
+
+      if (res.status === 429) {
+        toast.error("Too many attempts", {
+          description: "Please wait a moment before trying again.",
+        });
+        return;
+      }
+
+      if (!res.ok) {
+        toast.error("Something went wrong", {
+          description: data.error || "Please try again in a moment.",
+        });
+        return;
+      }
+
+      if (data.already_registered) {
         toast.info("You're already on the waitlist!", {
           description: "We'll notify you as soon as we launch.",
         });
-        setIsLoading(false);
         return;
-      }
-
-      let insertError: { message?: string } | null = null;
-
-      const row: Record<string, string> = {
-        email: email.toLowerCase().trim(),
-        name: name.trim(),
-        signed_up_at: new Date().toISOString(),
-        source: "landing_page",
-      };
-
-      const { error: err1 } = await supabase.from("waitlist").insert(row);
-      if (err1 && err1.message?.includes("name")) {
-        const { name: _, ...rowWithoutName } = row;
-        const { error: err2 } = await supabase.from("waitlist").insert(rowWithoutName);
-        insertError = err2;
-      } else {
-        insertError = err1;
-      }
-
-      if (insertError) {
-        console.error("Supabase insert error:", insertError);
-        toast.error("Something went wrong", {
-          description: "Please try again in a moment.",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        await supabase.functions.invoke("send-welcome-email", {
-          body: { email: email.toLowerCase().trim(), name: name.trim() },
-        });
-      } catch (emailErr) {
-        console.warn("Welcome email failed (non-blocking):", emailErr);
       }
 
       setSubmittedName(name.trim());
