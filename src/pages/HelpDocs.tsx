@@ -4,7 +4,6 @@ import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 import { ChevronRight, Menu, X, ArrowLeft, Search } from "lucide-react";
 
-/* ─── Sidebar TOC items ─── */
 const TOC = [
   { id: "s1",  label: "What Does Prmpt Actually Do?" },
   { id: "s2",  label: "Getting Started" },
@@ -25,25 +24,36 @@ const TOC = [
   { id: "s17", label: "Contact Us" },
 ];
 
-/* ─── Reusable primitives ─── */
 function SectionHeading({ id, num, children }: { id: string; num: number; children: React.ReactNode }) {
   return (
-    <h2
-      id={id}
-      className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-[#1E2A3B] mt-16 mb-6 scroll-mt-28"
-      style={{ fontFamily: "'DM Sans', sans-serif" }}
-    >
-      <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-[#232629] text-white text-sm font-bold shrink-0">
-        {num}
-      </span>
-      {children}
-    </h2>
+    <div className="mt-16 mb-6 scroll-mt-28" id={id}>
+      <h2
+        className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-[#1E2A3B] uppercase tracking-wide"
+        style={{ fontFamily: "'Lora', serif" }}
+      >
+        <span
+          className="inline-flex items-center justify-center w-10 h-10 shrink-0 text-sm font-bold text-[#FFF4ED]"
+          style={{
+            background: "#232629",
+            border: "3px solid #232629",
+            boxShadow: "3px 3px 0px #E8D0C3",
+          }}
+        >
+          {num}
+        </span>
+        {children}
+      </h2>
+      <div className="mt-4" style={{ height: 4, background: "#232629" }} />
+    </div>
   );
 }
 
 function SubHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-lg font-bold text-[#1E2A3B] mt-8 mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+    <h3
+      className="text-lg font-bold text-[#1E2A3B] mt-8 mb-3 uppercase tracking-wider"
+      style={{ fontFamily: "'Lora', serif" }}
+    >
       {children}
     </h3>
   );
@@ -51,8 +61,16 @@ function SubHeading({ children }: { children: React.ReactNode }) {
 
 function Callout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex gap-3 bg-[#FFF4ED] border-l-4 border-[#232629] rounded-r-xl px-5 py-4 my-5 text-[#1E2A3B] text-sm leading-relaxed">
-      <span className="shrink-0 mt-0.5 text-[#232629]">ℹ</span>
+    <div
+      className="flex gap-3 px-5 py-4 my-5 text-[#1E2A3B] text-sm leading-relaxed"
+      style={{
+        background: "#FFF9F6",
+        borderLeft: "5px solid #232629",
+        border: "3px solid #232629",
+        borderLeftWidth: 6,
+      }}
+    >
+      <span className="shrink-0 mt-0.5 text-[#232629] font-bold">ℹ</span>
       <div>{children}</div>
     </div>
   );
@@ -61,17 +79,37 @@ function Callout({ children }: { children: React.ReactNode }) {
 function BeforeAfterTable({ rows }: { rows: { before: string; after: string }[] }) {
   return (
     <div className="overflow-x-auto my-6">
-      <table className="w-full text-sm border-collapse">
+      <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
         <tbody>
           {rows.map((r, i) => (
             <React.Fragment key={i}>
               <tr>
-                <td className="w-24 align-top px-4 py-3 rounded-tl-xl bg-red-50 border border-red-100 font-bold text-red-500 whitespace-nowrap">❌ Before</td>
-                <td className="px-4 py-3 rounded-tr-xl bg-red-50 border border-red-100 italic text-[#1E2A3B]/70">{r.before}</td>
+                <td
+                  className="w-24 align-top px-4 py-3 font-bold whitespace-nowrap"
+                  style={{ background: "#FFF4ED", border: "3px solid #232629", color: "#D63232" }}
+                >
+                  ❌ Before
+                </td>
+                <td
+                  className="px-4 py-3 italic text-[#1E2A3B]/70"
+                  style={{ background: "#FFF4ED", border: "3px solid #232629", borderLeft: "none" }}
+                >
+                  {r.before}
+                </td>
               </tr>
               <tr>
-                <td className="align-top px-4 py-3 rounded-bl-xl bg-emerald-50 border border-emerald-100 font-bold text-emerald-600 whitespace-nowrap">✅ After</td>
-                <td className="px-4 py-3 rounded-br-xl bg-emerald-50 border border-emerald-100 text-[#1E2A3B]">{r.after}</td>
+                <td
+                  className="align-top px-4 py-3 font-bold text-emerald-700 whitespace-nowrap"
+                  style={{ background: "#FFF9F6", border: "3px solid #232629", borderTop: "none" }}
+                >
+                  ✅ After
+                </td>
+                <td
+                  className="px-4 py-3 text-[#1E2A3B]"
+                  style={{ background: "#FFF9F6", border: "3px solid #232629", borderLeft: "none", borderTop: "none" }}
+                >
+                  {r.after}
+                </td>
               </tr>
               {i < rows.length - 1 && <tr><td colSpan={2} className="h-4" /></tr>}
             </React.Fragment>
@@ -85,11 +123,23 @@ function BeforeAfterTable({ rows }: { rows: { before: string; after: string }[] 
 function DataTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
   return (
     <div className="overflow-x-auto my-5">
-      <table className="w-full text-sm border-collapse rounded-xl overflow-hidden">
+      <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
         <thead>
           <tr>
             {headers.map((h) => (
-              <th key={h} className="text-left px-4 py-3 bg-[#1E2A3B] text-white font-semibold first:rounded-tl-xl last:rounded-tr-xl">
+              <th
+                key={h}
+                className="text-left px-4 py-3 font-bold"
+                style={{
+                  background: "#232629",
+                  color: "#FFF4ED",
+                  border: "3px solid #232629",
+                  fontFamily: "'DM Sans', sans-serif",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  fontSize: "0.75rem",
+                }}
+              >
                 {h}
               </th>
             ))}
@@ -97,13 +147,15 @@ function DataTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr key={i} className={i % 2 === 0 ? "bg-[#FFF9F6]" : "bg-[#FFF4ED]"}>
+            <tr key={i}>
               {row.map((cell, j) => (
                 <td
                   key={j}
-                  className={`px-4 py-3 border-b border-[#F2D9CE] text-[#1E2A3B]/80 leading-relaxed
-                    ${i === rows.length - 1 && j === 0 ? "rounded-bl-xl" : ""}
-                    ${i === rows.length - 1 && j === row.length - 1 ? "rounded-br-xl" : ""}`}
+                  className="px-4 py-3 text-[#1E2A3B]/80 leading-relaxed"
+                  style={{
+                    background: i % 2 === 0 ? "#FFF9F6" : "#FFF4ED",
+                    border: "3px solid #232629",
+                  }}
                   dangerouslySetInnerHTML={{ __html: cell }}
                 />
               ))}
@@ -120,7 +172,14 @@ function StepList({ steps }: { steps: React.ReactNode[] }) {
     <ol className="space-y-2 my-4">
       {steps.map((step, i) => (
         <li key={i} className="flex gap-3 text-[#1E2A3B]/80 text-sm leading-relaxed">
-          <span className="shrink-0 w-6 h-6 rounded-full bg-[#232629]/10 text-[#232629] text-xs font-bold flex items-center justify-center mt-0.5">
+          <span
+            className="shrink-0 w-6 h-6 text-xs font-bold flex items-center justify-center mt-0.5"
+            style={{
+              background: "#232629",
+              color: "#FFF4ED",
+              border: "2px solid #232629",
+            }}
+          >
             {i + 1}
           </span>
           <span>{step}</span>
@@ -135,7 +194,10 @@ function BulletList({ items }: { items: React.ReactNode[] }) {
     <ul className="space-y-1.5 my-4">
       {items.map((item, i) => (
         <li key={i} className="flex gap-2.5 text-[#1E2A3B]/80 text-sm leading-relaxed">
-          <span className="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-[#232629]" />
+          <span
+            className="shrink-0 mt-1 w-2 h-2"
+            style={{ background: "#232629" }}
+          />
           <span>{item}</span>
         </li>
       ))}
@@ -144,7 +206,29 @@ function BulletList({ items }: { items: React.ReactNode[] }) {
 }
 
 function Divider() {
-  return <hr className="border-[#F2D9CE] my-10" />;
+  return <div className="my-10" style={{ height: 4, background: "#232629" }} />;
+}
+
+function StampLabel({ children, rotate = "0deg" }: { children: React.ReactNode; rotate?: string }) {
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        border: "3px solid #232629",
+        padding: "4px 14px",
+        fontFamily: "'DM Sans', sans-serif",
+        fontWeight: 700,
+        fontSize: "0.62rem",
+        letterSpacing: "0.15em",
+        textTransform: "uppercase",
+        transform: `rotate(${rotate})`,
+        color: "#232629",
+        background: "#FFF4ED",
+      }}
+    >
+      {children}
+    </span>
+  );
 }
 
 export default function HelpDocs() {
@@ -153,7 +237,6 @@ export default function HelpDocs() {
   const [searchQuery, setSearchQuery] = useState("");
   const contentRef = useRef<HTMLDivElement>(null);
 
-  /* ── Highlight active TOC item on scroll ── */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -180,6 +263,66 @@ export default function HelpDocs() {
     t.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const sidebarNav = (mobile: boolean) => (
+    <>
+      {/* Search */}
+      <div className="relative mb-5">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#526070]" />
+        <input
+          type="text"
+          placeholder="Search sections…"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pl-9 pr-4 py-2.5 text-sm text-[#1E2A3B] placeholder:text-[#526070]/50"
+          style={{
+            background: "#FFF4ED",
+            border: "3px solid #232629",
+            outline: "none",
+            fontFamily: "'DM Sans', sans-serif",
+          }}
+        />
+      </div>
+
+      {/* Contents stamp label */}
+      <div className="mb-3 px-1">
+        <StampLabel rotate="-1.5deg">◆ CONTENTS ◆</StampLabel>
+      </div>
+
+      <nav className="space-y-0">
+        {filteredTOC.map((item, i) => {
+          const isActive = !mobile && activeId === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => scrollTo(item.id)}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-left text-sm transition-all"
+              style={{
+                background: isActive ? "#232629" : "transparent",
+                color: isActive ? "#FFF4ED" : "#526070",
+                fontWeight: isActive ? 700 : 500,
+                fontFamily: "'DM Sans', sans-serif",
+                borderBottom: "1px solid #F2D9CE",
+              }}
+            >
+              <span
+                className="shrink-0 text-[10px] font-bold w-5 h-5 flex items-center justify-center"
+                style={{
+                  background: isActive ? "#FFF4ED" : "#232629",
+                  color: isActive ? "#232629" : "#FFF4ED",
+                  border: isActive ? "none" : "2px solid #232629",
+                }}
+              >
+                {i + 1}
+              </span>
+              <span className="truncate">{item.label}</span>
+              {isActive && <ChevronRight className="w-3 h-3 ml-auto shrink-0" />}
+            </button>
+          );
+        })}
+      </nav>
+    </>
+  );
+
   return (
     <>
       <style>{`
@@ -192,104 +335,109 @@ export default function HelpDocs() {
         className="min-h-screen"
         style={{ backgroundColor: "#FFF4ED", color: "#1E2A3B", fontFamily: "'DM Sans', sans-serif" }}
       >
+        {/* Grid background like Version11 */}
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundImage:
+              "linear-gradient(#F2D9CE 1px, transparent 1px), linear-gradient(90deg, #F2D9CE 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+            opacity: 0.35,
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+
         {/* ── TOP BAR ── */}
-        <header className="sticky top-0 z-50 bg-[#FFF9F6]/90 backdrop-blur-md border-b border-[#F2D9CE] px-5 md:px-10 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            {/* Back to site */}
-            <a
-              href="/"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#526070] hover:text-[#232629] transition-colors"
+        <header
+          className="sticky top-0 z-50 flex items-center justify-between gap-4"
+          style={{
+            background: "#FFF4ED",
+            borderBottom: "5px solid #232629",
+            padding: "0",
+          }}
+        >
+          <div className="flex items-center h-full" style={{ gap: 0 }}>
+            {/* Logo area — dark bg */}
+            <div
+              className="flex items-center px-5 self-stretch"
+              style={{ background: "#232629", borderRight: "5px solid #232629" }}
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Back to site</span>
-            </a>
-            <span className="text-[#F2D9CE]">|</span>
-            <div className="flex items-center gap-2">
-              <img src="/logos/dark-logo-svg.svg" alt="Prmpt" className="h-7 w-auto" />
-              <span className="text-base font-bold text-[#1E2A3B]" style={{ fontFamily: "'Lora', serif" }}>
+              <img src="/logos/dark-logo-svg.svg" alt="Prmpt" style={{ height: 42, filter: "brightness(0) invert(1)" }} />
+            </div>
+
+            {/* Title */}
+            <div className="px-5 py-3 flex items-center gap-3" style={{ borderRight: "3px solid #232629" }}>
+              <span
+                className="text-base font-bold text-[#1E2A3B] uppercase tracking-wider"
+                style={{ fontFamily: "'Lora', serif", letterSpacing: "0.1em" }}
+              >
                 Help & Docs
               </span>
             </div>
+
+            {/* Back to site */}
+            <a
+              href="/"
+              className="hidden sm:flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase self-stretch"
+              style={{
+                color: "#1E2A3B",
+                textDecoration: "none",
+                letterSpacing: "0.1em",
+                fontFamily: "'DM Sans', sans-serif",
+                borderRight: "3px solid #232629",
+                transition: "background 0.15s, color 0.15s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#232629"; e.currentTarget.style.color = "#FFF4ED"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#1E2A3B"; }}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to site
+            </a>
           </div>
 
           {/* Mobile sidebar toggle */}
           <button
-            className="md:hidden p-2 rounded-lg bg-[#FFF4ED] border border-[#F2D9CE] text-[#526070]"
+            className="md:hidden mr-4"
             onClick={() => setSidebarOpen(!sidebarOpen)}
+            style={{
+              background: "none",
+              border: "3px solid #232629",
+              padding: 8,
+              cursor: "pointer",
+              color: "#232629",
+            }}
           >
             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </header>
 
-        <div className="max-w-7xl mx-auto flex">
+        <div className="max-w-7xl mx-auto flex" style={{ position: "relative", zIndex: 1 }}>
 
-          {/* ── SIDEBAR ── */}
-          {/* Desktop */}
-          <aside className="hidden md:block w-64 lg:w-72 shrink-0 sticky top-[69px] h-[calc(100vh-69px)] overflow-y-auto border-r border-[#F2D9CE] bg-[#FFF9F6]/60 py-6 px-4">
-            {/* Search */}
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#526070]" />
-              <input
-                type="text"
-                placeholder="Search sections…"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 text-sm bg-[#FFF4ED] border border-[#F2D9CE] rounded-lg focus:outline-none focus:border-[#232629] focus:ring-1 focus:ring-[#232629]/20 text-[#1E2A3B] placeholder:text-[#526070]/50"
-              />
-            </div>
-
-            <p className="text-[11px] font-bold uppercase tracking-widest text-[#526070]/60 mb-3 px-2">
-              Contents
-            </p>
-            <nav className="space-y-0.5">
-              {filteredTOC.map((item, i) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollTo(item.id)}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-sm transition-all ${
-                    activeId === item.id
-                      ? "bg-[#232629]/10 text-[#232629] font-semibold"
-                      : "text-[#526070] hover:bg-[#FFF4ED] hover:text-[#1E2A3B]"
-                  }`}
-                >
-                  <span className={`shrink-0 text-[11px] font-bold w-5 text-right ${activeId === item.id ? "text-[#232629]" : "text-[#526070]/40"}`}>
-                    {i + 1}
-                  </span>
-                  {item.label}
-                  {activeId === item.id && <ChevronRight className="w-3 h-3 ml-auto shrink-0" />}
-                </button>
-              ))}
-            </nav>
+          {/* ── SIDEBAR — Desktop ── */}
+          <aside
+            className="hidden md:block w-64 lg:w-72 shrink-0 sticky top-[73px] h-[calc(100vh-73px)] overflow-y-auto py-6 px-4"
+            style={{
+              borderRight: "4px solid #232629",
+              background: "#FFF9F6",
+            }}
+          >
+            {sidebarNav(false)}
           </aside>
 
           {/* Mobile sidebar overlay */}
           {sidebarOpen && (
             <div className="fixed inset-0 z-40 md:hidden">
-              <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
-              <aside className="absolute left-0 top-[69px] bottom-0 w-72 bg-[#FFF9F6] border-r border-[#F2D9CE] overflow-y-auto py-6 px-4 z-50">
-                <div className="relative mb-4">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#526070]" />
-                  <input
-                    type="text"
-                    placeholder="Search sections…"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 text-sm bg-[#FFF4ED] border border-[#F2D9CE] rounded-lg focus:outline-none focus:border-[#232629] text-[#1E2A3B] placeholder:text-[#526070]/50"
-                  />
-                </div>
-                <p className="text-[11px] font-bold uppercase tracking-widest text-[#526070]/60 mb-3 px-2">Contents</p>
-                <nav className="space-y-0.5">
-                  {filteredTOC.map((item, i) => (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollTo(item.id)}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-sm text-[#526070] hover:bg-[#FFF4ED] hover:text-[#1E2A3B] transition-all"
-                    >
-                      <span className="shrink-0 text-[11px] font-bold w-5 text-right text-[#526070]/40">{i + 1}</span>
-                      {item.label}
-                    </button>
-                  ))}
-                </nav>
+              <div className="absolute inset-0 bg-black/40" onClick={() => setSidebarOpen(false)} />
+              <aside
+                className="absolute left-0 top-[73px] bottom-0 w-72 overflow-y-auto py-6 px-4 z-50"
+                style={{
+                  background: "#FFF9F6",
+                  borderRight: "4px solid #232629",
+                }}
+              >
+                {sidebarNav(true)}
               </aside>
             </div>
           )}
@@ -299,14 +447,23 @@ export default function HelpDocs() {
 
             {/* Hero */}
             <div className="mb-14">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#232629]/10 text-[#232629] text-xs font-bold uppercase tracking-widest mb-5">
-                Documentation
-              </div>
+              <StampLabel rotate="-2deg">◆ DOCUMENTATION ◆</StampLabel>
               <h1
-                className="text-4xl md:text-5xl text-[#232629] mb-5 leading-tight"
-                style={{ fontFamily: "'Lora', serif", fontWeight: 700 }}
+                className="text-4xl md:text-5xl text-[#1E2A3B] mb-5 leading-tight mt-4 uppercase"
+                style={{ fontFamily: "'Lora', serif", fontWeight: 700, letterSpacing: "0.04em" }}
               >
-                Help & Documentation
+                Help &{" "}
+                <span
+                  style={{
+                    background: "#232629",
+                    color: "#FFF4ED",
+                    padding: "0 12px",
+                    display: "inline-block",
+                    transform: "rotate(-1deg)",
+                  }}
+                >
+                  Documentation
+                </span>
               </h1>
               <p className="text-lg text-[#526070] max-w-2xl leading-relaxed">
                 <strong className="text-[#1E2A3B]">Prmpt</strong> turns your rough prompt ideas into clear, detailed, AI-ready prompts — from inside any app on your computer, in seconds.
@@ -386,8 +543,8 @@ export default function HelpDocs() {
             <DataTable
               headers={["Method", "How"]}
               rows={[
-                ["<strong>Type <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-[#232629] text-xs'>@prompt</code></strong>", "Type <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-[#232629] text-xs'>@prompt</code> in any text field on your computer — a browser, Word, Slack, anything. The overlay appears right next to your cursor."],
-                ["<strong>Keyboard shortcut</strong>", "Press <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-xs'>Ctrl+5</code> (Windows) or <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-xs'>Cmd+5</code> (Mac) from anywhere."],
+                ["<strong>Type <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-[#232629] text-xs'>@prompt</code></strong>", "Type <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-[#232629] text-xs'>@prompt</code> in any text field on your computer — a browser, Word, Slack, anything. The overlay appears right next to your cursor."],
+                ["<strong>Keyboard shortcut</strong>", "Press <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-xs'>Ctrl+5</code> (Windows) or <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-xs'>Cmd+5</code> (Mac) from anywhere."],
                 ["<strong>System tray</strong>", "Right-click the Prmpt icon in your taskbar → <strong>Toggle Overlay</strong>."],
               ]}
             />
@@ -397,9 +554,9 @@ export default function HelpDocs() {
               "Type your rough idea into the overlay.",
               "Press Enter to optimize.",
               "Read the polished result.",
-              <>Click <strong>Replace</strong> to swap your <code className="bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-[#232629] text-xs">@prompt</code> text with the result — right in the app you were using.</>,
+              <>Click <strong>Replace</strong> to swap your <code className="bg-[#1E2A3B]/8 px-1.5 py-0.5 text-[#232629] text-xs">@prompt</code> text with the result — right in the app you were using.</>,
               <>Or click <strong>Copy</strong> to copy it to your clipboard.</>,
-              <>Press <kbd className="px-1.5 py-0.5 bg-[#FFF4ED] border border-[#F2D9CE] rounded text-xs">Esc</kbd> or click <strong>✕</strong> to close.</>,
+              <>Press <kbd className="px-1.5 py-0.5 bg-[#FFF4ED] border-2 border-[#232629] text-xs font-bold">Esc</kbd> or click <strong>✕</strong> to close.</>,
             ]} />
 
             <Callout>
@@ -662,7 +819,7 @@ export default function HelpDocs() {
 
             <SubHeading>Memory Tab</SubHeading>
             <p className="text-[#1E2A3B]/80 text-sm leading-relaxed">
-              See the <button onClick={() => scrollTo("s12")} className="text-[#232629] hover:underline font-medium">App Memory</button> section above.
+              See the <button onClick={() => scrollTo("s12")} className="text-[#232629] hover:underline font-bold uppercase tracking-wider text-xs" style={{ border: "2px solid #232629", padding: "2px 8px", background: "transparent" }}>App Memory</button> section above.
             </p>
 
             <Divider />
@@ -701,11 +858,11 @@ export default function HelpDocs() {
             <DataTable
               headers={["Shortcut", "What it does"]}
               rows={[
-                ["Type <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-[#232629] text-xs'>@prompt</code> anywhere", "Opens the overlay next to your cursor"],
-                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-xs'>Ctrl+5</code> / <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-xs'>Cmd+5</code>", "Toggle the overlay on/off"],
-                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-xs'>Enter</code>", "Send your message / optimize"],
-                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-xs'>Shift+Enter</code>", "New line in the input box"],
-                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 rounded text-xs'>Esc</code>", "Close the overlay"],
+                ["Type <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-[#232629] text-xs'>@prompt</code> anywhere", "Opens the overlay next to your cursor"],
+                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-xs'>Ctrl+5</code> / <code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-xs'>Cmd+5</code>", "Toggle the overlay on/off"],
+                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-xs'>Enter</code>", "Send your message / optimize"],
+                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-xs'>Shift+Enter</code>", "New line in the input box"],
+                ["<code class='bg-[#1E2A3B]/8 px-1.5 py-0.5 text-xs'>Esc</code>", "Close the overlay"],
               ]}
             />
 
@@ -744,12 +901,27 @@ export default function HelpDocs() {
                   q: "Can I share prompts with people who don't have Prmpt?",
                   a: "Yes — shared prompt links open in a browser and anyone can read or copy the prompt without an account.",
                 },
-              ].map(({ q, a }) => (
-                <div key={q} className="rounded-xl border border-[#F2D9CE] bg-[#FFF9F6] overflow-hidden">
-                  <div className="px-5 py-4 bg-[#FFF4ED] border-b border-[#F2D9CE]">
-                    <p className="font-semibold text-[#1E2A3B] text-sm">{q}</p>
+              ].map(({ q, a }, i) => (
+                <div
+                  key={q}
+                  style={{
+                    border: "3px solid #232629",
+                    boxShadow: "5px 5px 0px #232629",
+                    background: "#FFF9F6",
+                    overflow: "hidden",
+                    transform: i % 2 === 0 ? "rotate(-0.3deg)" : "rotate(0.3deg)",
+                  }}
+                >
+                  <div
+                    className="px-5 py-4"
+                    style={{
+                      background: "#232629",
+                      borderBottom: "3px solid #232629",
+                    }}
+                  >
+                    <p className="font-bold text-sm uppercase tracking-wide" style={{ color: "#FFF4ED", fontFamily: "'DM Sans', sans-serif" }}>{q}</p>
                   </div>
-                  <p className="px-5 py-4 text-sm text-[#1E2A3B]/70 leading-relaxed">{a}</p>
+                  <p className="px-5 py-4 text-sm text-[#1E2A3B]/80 leading-relaxed">{a}</p>
                 </div>
               ))}
             </div>
@@ -794,12 +966,43 @@ export default function HelpDocs() {
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-xl border border-[#F2D9CE] bg-[#FFF9F6] hover:border-[#232629]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
+                  className="flex items-center gap-4 p-4 group"
+                  style={{
+                    border: "3px solid #232629",
+                    boxShadow: "5px 5px 0px #232629",
+                    background: "#FFF9F6",
+                    textDecoration: "none",
+                    transition: "transform 0.15s, box-shadow 0.15s",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translate(-2px, -2px)"; e.currentTarget.style.boxShadow = "7px 7px 0px #232629"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translate(0, 0)"; e.currentTarget.style.boxShadow = "5px 5px 0px #232629"; }}
                 >
-                  <span className="text-2xl">{icon}</span>
+                  <span
+                    className="text-2xl flex items-center justify-center shrink-0"
+                    style={{
+                      width: 48,
+                      height: 48,
+                      background: "#E8D0C3",
+                      border: "3px solid #232629",
+                    }}
+                  >
+                    {icon}
+                  </span>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-[#526070]/60 mb-0.5">{label}</p>
-                    <p className="text-sm font-semibold text-[#1E2A3B] group-hover:text-[#232629] transition-colors">{value}</p>
+                    <p
+                      className="mb-0.5"
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 700,
+                        fontSize: "0.62rem",
+                        letterSpacing: "0.15em",
+                        textTransform: "uppercase",
+                        color: "#526070",
+                      }}
+                    >
+                      {label}
+                    </p>
+                    <p className="text-sm font-bold text-[#1E2A3B]">{value}</p>
                   </div>
                 </a>
               ))}
@@ -810,8 +1013,9 @@ export default function HelpDocs() {
             </Callout>
 
             {/* Footer note */}
-            <div className="mt-16 pt-8 border-t border-[#F2D9CE] text-center">
-              <p className="text-sm text-[#526070]/60 italic">
+            <div className="mt-16 pt-8 text-center" style={{ borderTop: "4px solid #232629" }}>
+              <StampLabel rotate="1.5deg">✦ THANK YOU ✦</StampLabel>
+              <p className="text-sm text-[#526070] mt-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                 Thank you for using Prmpt — we're just getting started, and your feedback shapes every update.
               </p>
             </div>

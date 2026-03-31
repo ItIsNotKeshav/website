@@ -133,12 +133,20 @@ export default function Version11() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submittedName, setSubmittedName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [featureIdx, setFeatureIdx] = useState(0);
 
+  const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || !name.trim() || isLoading) return;
+    if (!name.trim() || isLoading) return;
+
+    if (!email.trim() || !isValidEmail(email.trim())) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
 
     setIsLoading(true);
 
@@ -192,10 +200,10 @@ export default function Version11() {
         console.warn("Welcome email failed (non-blocking):", emailErr);
       }
 
+      setSubmittedName(name.trim());
       setSubmitted(true);
-      toast.success("You're on the list!", {
-        description: "Check your inbox for a welcome email from us.",
-      });
+      setName("");
+      setEmail("");
     } catch (err) {
       console.error("Waitlist submission error:", err);
       toast.error("Connection error", {
@@ -1049,34 +1057,155 @@ export default function Version11() {
                   {submitted ? (
                     <motion.div
                       key="success"
-                      initial={{ scale: 0.8, opacity: 0, rotate: -2 }}
-                      animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                      animate={{ scale: 1, opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                       style={{
                         border: "4px solid #232629",
-                        padding: "28px 40px",
-                        display: "inline-block",
                         background: "#232629",
                         color: "#FFF4ED",
-                        fontWeight: 700,
-                        fontSize: "1.1rem",
-                        letterSpacing: "0.08em",
-                        textTransform: "uppercase",
-                        fontFamily: "'DM Sans', sans-serif",
-                        boxShadow: "8px 8px 0px #D63232",
+                        padding: "40px 36px",
+                        maxWidth: 500,
+                        margin: "0 auto",
+                        boxShadow: "10px 10px 0px #D63232",
+                        position: "relative",
                       }}
                     >
-                      ✦ YOU'RE ON THE LIST ✦
-                      <p style={{
-                        fontSize: "0.8rem",
-                        fontWeight: 500,
-                        marginTop: 8,
-                        letterSpacing: "0.05em",
-                        color: "#E8D0C3",
-                        textTransform: "none",
-                      }}>
-                        We'll be in touch soon.
-                      </p>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.3, type: "spring", stiffness: 300, damping: 15 }}
+                        style={{
+                          position: "absolute",
+                          top: -18,
+                          right: 20,
+                          background: "#D63232",
+                          color: "#FFF4ED",
+                          padding: "5px 14px",
+                          fontWeight: 700,
+                          fontSize: "0.6rem",
+                          letterSpacing: "0.15em",
+                          fontFamily: "'DM Sans', sans-serif",
+                        }}
+                      >
+                        ✦ CONFIRMED ✦
+                      </motion.div>
+
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15, duration: 0.4 }}
+                        style={{
+                          fontFamily: "'Lora', serif",
+                          fontSize: "1.6rem",
+                          fontWeight: 700,
+                          lineHeight: 1.2,
+                          marginBottom: 16,
+                        }}
+                      >
+                        Welcome aboard{submittedName ? `, ${submittedName}` : ""}.
+                      </motion.p>
+
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.35, duration: 0.4 }}
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "0.88rem",
+                          lineHeight: 1.7,
+                          color: "#E8D0C3",
+                          marginBottom: 20,
+                        }}
+                      >
+                        You're officially on the Prmpt waitlist. We'll send you
+                        an email the moment we're ready to let you in. Keep an
+                        eye on your inbox.
+                      </motion.p>
+
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5, duration: 0.4 }}
+                        style={{
+                          borderTop: "3px solid #FFF4ED",
+                          paddingTop: 16,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 8,
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontSize: "0.7rem",
+                            fontWeight: 700,
+                            letterSpacing: "0.15em",
+                            textTransform: "uppercase",
+                            color: "#E8D0C3",
+                          }}
+                        >
+                          WHILE YOU WAIT
+                        </p>
+                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                          <a
+                            href="https://x.com/TryPrmpt"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              padding: "8px 16px",
+                              border: "2px solid #FFF4ED",
+                              color: "#FFF4ED",
+                              fontFamily: "'DM Sans', sans-serif",
+                              fontSize: "0.72rem",
+                              fontWeight: 700,
+                              letterSpacing: "0.08em",
+                              textDecoration: "none",
+                              textTransform: "uppercase",
+                              transition: "all 0.15s",
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.background = "#FFF4ED"; e.currentTarget.style.color = "#232629"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#FFF4ED"; }}
+                          >
+                            FOLLOW ON X →
+                          </a>
+                          <a
+                            href="https://www.instagram.com/tryprmpt/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              padding: "8px 16px",
+                              border: "2px solid #FFF4ED",
+                              color: "#FFF4ED",
+                              fontFamily: "'DM Sans', sans-serif",
+                              fontSize: "0.72rem",
+                              fontWeight: 700,
+                              letterSpacing: "0.08em",
+                              textDecoration: "none",
+                              textTransform: "uppercase",
+                              transition: "all 0.15s",
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.background = "#FFF4ED"; e.currentTarget.style.color = "#232629"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#FFF4ED"; }}
+                          >
+                            INSTAGRAM →
+                          </a>
+                        </div>
+                      </motion.div>
+
+                      <div style={{ display: "flex", gap: 6, marginTop: 20, justifyContent: "flex-end" }}>
+                        {["✦", "✦", "✦", "✦", "✦"].map((s, i) => (
+                          <motion.span
+                            key={i}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.6 + i * 0.08, type: "spring", stiffness: 400, damping: 15 }}
+                            style={{ color: "#D63232", fontSize: "0.9rem", fontWeight: 700 }}
+                          >
+                            {s}
+                          </motion.span>
+                        ))}
+                      </div>
                     </motion.div>
                   ) : (
                     <motion.form
