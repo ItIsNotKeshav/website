@@ -167,7 +167,7 @@ function WaitlistCard() {
       {/* Glow behind card */}
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#E8C8B7]/25 to-[#F2D9CE]/20 blur-2xl scale-110 -z-10" />
 
-      <div className="relative backdrop-blur-xl bg-[#FFF9F6]/50 border-2 border-[#F2D9CE]/60 rounded-[2rem] p-10 md:p-14 w-full max-w-[580px] mx-auto shadow-2xl shadow-[#1E2A3B]/5">
+      <div className="relative backdrop-blur-xl bg-[#FFF9F6]/50 border-2 border-[#F2D9CE]/60 rounded-[2rem] p-8 sm:p-10 md:p-14 w-full max-w-[580px] mx-auto shadow-2xl shadow-[#1E2A3B]/5">
         {/* Inner gradient overlay */}
         <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#FFF4ED]/80 to-transparent pointer-events-none" />
 
@@ -188,7 +188,7 @@ function WaitlistCard() {
               </div>
 
               <form onSubmit={handleSubmit} className="mb-8">
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="email"
                     placeholder="you@email.com"
@@ -202,7 +202,7 @@ function WaitlistCard() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="h-14 px-8 bg-[#1E2A3B] hover:bg-[#232629] text-white font-bold cursor-pointer rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-lg whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="h-14 px-8 bg-[#1E2A3B] hover:bg-[#232629] text-white font-bold cursor-pointer rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-lg whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {isLoading ? (
@@ -221,7 +221,7 @@ function WaitlistCard() {
               </form>
 
               {/* Countdown */}
-              <div className="flex items-center justify-center gap-6 text-center">
+              <div className="flex items-center justify-center gap-3 sm:gap-6 text-center flex-wrap">
                 {[
                   { value: timeLeft.days, label: "DAYS" },
                   { value: timeLeft.hours, label: "HOURS" },

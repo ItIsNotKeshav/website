@@ -283,6 +283,25 @@ export default function HelpDocs() {
         />
       </div>
 
+      {/* Back to site — mobile only */}
+      {mobile && (
+        <a
+          href="/"
+          className="flex items-center gap-2 px-3 py-3 mb-4 text-sm font-bold uppercase"
+          style={{
+            background: "#232629",
+            color: "#FFF4ED",
+            textDecoration: "none",
+            fontFamily: "'DM Sans', sans-serif",
+            letterSpacing: "0.08em",
+            border: "3px solid #232629",
+          }}
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to site
+        </a>
+      )}
+
       {/* Contents stamp label */}
       <div className="mb-3 px-1">
         <StampLabel rotate="-1.5deg">◆ CONTENTS ◆</StampLabel>
@@ -329,6 +348,11 @@ export default function HelpDocs() {
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         code { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+        @media (max-width: 640px) {
+          .hd-header-logo { height: 34px !important; }
+          .hd-header-title { font-size: 0.8rem !important; padding: 8px 12px !important; }
+          .hd-logo-area { padding: 0 12px !important; }
+        }
       `}</style>
 
       <div
@@ -359,16 +383,16 @@ export default function HelpDocs() {
           }}
         >
           <div className="flex items-center h-full" style={{ gap: 0 }}>
-            {/* Logo area — dark bg */}
+            {/* Logo area */}
             <div
-              className="flex items-center px-5 self-stretch"
-              style={{ background: "#232629", borderRight: "5px solid #232629" }}
+              className="hd-logo-area flex items-center px-5 self-stretch"
+              style={{ background: "#FFF4ED", borderRight: "5px solid #232629" }}
             >
-              <img src="/logos/dark-logo-svg.svg" alt="Prmpt" style={{ height: 42, filter: "brightness(0) invert(1)" }} />
+              <img src="/logos/dark-logo-svg.svg" alt="Prmpt" className="hd-header-logo" style={{ height: 42 }} />
             </div>
 
             {/* Title */}
-            <div className="px-5 py-3 flex items-center gap-3" style={{ borderRight: "3px solid #232629" }}>
+            <div className="hd-header-title px-5 py-3 flex items-center gap-3" style={{ borderRight: "3px solid #232629" }}>
               <span
                 className="text-base font-bold text-[#1E2A3B] uppercase tracking-wider"
                 style={{ fontFamily: "'Lora', serif", letterSpacing: "0.1em" }}
@@ -377,7 +401,7 @@ export default function HelpDocs() {
               </span>
             </div>
 
-            {/* Back to site */}
+            {/* Back to site — hidden on very small screens, shown in mobile sidebar instead */}
             <a
               href="/"
               className="hidden sm:flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase self-stretch"

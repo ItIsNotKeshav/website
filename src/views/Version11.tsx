@@ -218,6 +218,23 @@ export default function Version11() {
           0%, 100% { box-shadow: 8px 8px 0px #232629; }
           50% { box-shadow: 6px 6px 0px #232629; }
         }
+        @media (max-width: 767px) {
+          .v11-hero { padding: 56px 20px 44px !important; }
+          .v11-hero-buttons { flex-direction: column !important; align-items: stretch !important; }
+          .v11-hero-btn-primary { border: 4px solid #232629 !important; text-align: center; justify-content: center; }
+          .v11-hero-btn-secondary { border: 4px solid #232629 !important; text-align: center; justify-content: center; }
+          .v11-feature-left { padding: 28px 20px !important; }
+          .v11-feature-right { min-height: 200px !important; }
+          .v11-waitlist-box { padding: 36px 20px !important; box-shadow: 6px 6px 0px #232629 !important; }
+          .v11-waitlist-form { max-width: 100% !important; }
+          .v11-email-row { flex-wrap: wrap !important; }
+          .v11-email-row input { min-width: 0; flex: 1 1 100% !important; }
+          .v11-email-row .v11-submit-btn { flex: 1 1 100% !important; justify-content: center; border-left: none !important; border-top: 4px solid #232629 !important; }
+          .v11-manifesto { transform: none !important; }
+          .v11-about-grid { gap: 32px !important; }
+          .v11-contact-grid { gap: 32px !important; }
+          .v11-footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+        }
       `}</style>
 
       <div
@@ -313,6 +330,7 @@ export default function Version11() {
 
             {/* Mobile menu button */}
             <button
+              suppressHydrationWarning
               className="md:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               style={{
@@ -371,6 +389,7 @@ export default function Version11() {
 
         {/* ═══════ HERO ═══════ */}
         <section
+          className="v11-hero"
           style={{
             position: "relative",
             zIndex: 1,
@@ -462,6 +481,7 @@ export default function Version11() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="v11-hero-buttons"
             style={{ display: "flex", gap: 0, justifyContent: "center", flexWrap: "wrap" }}
           >
             <motion.a
@@ -469,6 +489,7 @@ export default function Version11() {
               onClick={(e) => scrollTo(e, "#early-access-v11")}
               whileHover={{ backgroundColor: "#D63232", borderColor: "#D63232" }}
               transition={{ duration: 0.15 }}
+              className="v11-hero-btn-primary"
               style={{
                 padding: "13px 30px",
                 background: "#232629",
@@ -489,6 +510,7 @@ export default function Version11() {
               onClick={(e) => scrollTo(e, "#features-v11")}
               whileHover={{ backgroundColor: "#232629", color: "#FFF4ED" }}
               transition={{ duration: 0.15 }}
+              className="v11-hero-btn-secondary"
               style={{
                 padding: "13px 30px",
                 background: "#FFF4ED",
@@ -576,6 +598,7 @@ export default function Version11() {
               {/* Nav buttons */}
               <div style={{ display: "flex", gap: 8 }}>
                 <button
+                  suppressHydrationWarning
                   onClick={() => setFeatureIdx((p) => Math.max(0, p - 1))}
                   disabled={featureIdx === 0}
                   style={{
@@ -594,6 +617,7 @@ export default function Version11() {
                   <ArrowLeft size={20} color={featureIdx === 0 ? "#E8D0C3" : "#232629"} strokeWidth={2.5} />
                 </button>
                 <button
+                  suppressHydrationWarning
                   onClick={() => setFeatureIdx((p) => Math.min(FEATURES.length - 1, p + 1))}
                   disabled={featureIdx === FEATURES.length - 1}
                   style={{
@@ -640,7 +664,7 @@ export default function Version11() {
                     className="md:!grid-cols-2"
                   >
                     {/* Left — Info */}
-                    <div style={{ padding: "40px 36px" }}>
+                    <div className="v11-feature-left" style={{ padding: "40px 36px" }}>
                       <div
                         style={{
                           width: 52,
@@ -684,6 +708,7 @@ export default function Version11() {
                       <div style={{ display: "flex", gap: 6, marginTop: 32 }}>
                         {FEATURES.map((_, j) => (
                           <button
+                            suppressHydrationWarning
                             key={j}
                             onClick={() => setFeatureIdx(j)}
                             style={{
@@ -702,6 +727,7 @@ export default function Version11() {
 
                     {/* Right — Video placeholder */}
                     <div
+                      className="v11-feature-right"
                       style={{
                         background: "#232629",
                         position: "relative",
@@ -810,11 +836,10 @@ export default function Version11() {
               margin: "0 auto",
               padding: "80px 24px",
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
               gap: 64,
               alignItems: "center",
             }}
-            className="!grid-cols-1 md:!grid-cols-2"
+            className="!grid-cols-1 md:!grid-cols-2 v11-about-grid"
           >
             <SectionReveal>
               <StampLabel rotate="-2deg" className="mb-4 inline-block">
@@ -922,6 +947,7 @@ export default function Version11() {
 
             <SectionReveal>
               <div
+                className="v11-manifesto"
                 style={{
                   border: "5px solid #FFF4ED",
                   padding: 40,
@@ -983,6 +1009,7 @@ export default function Version11() {
         >
           <SectionReveal>
             <div
+              className="v11-waitlist-box"
               style={{
                 border: "5px solid #232629",
                 background: "#FFF9F6",
@@ -1195,6 +1222,7 @@ export default function Version11() {
                       onSubmit={handleSubmit}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
+                      className="v11-waitlist-form"
                       style={{
                         maxWidth: 500,
                         margin: "0 auto",
@@ -1218,6 +1246,7 @@ export default function Version11() {
                           <User size={16} color="#FFF4ED" />
                         </div>
                         <input
+                          suppressHydrationWarning
                           type="text"
                           required
                           placeholder="YOUR NAME"
@@ -1234,12 +1263,13 @@ export default function Version11() {
                             fontSize: "0.85rem",
                             letterSpacing: "0.08em",
                             color: "#1E2A3B",
+                            minWidth: 0,
                           }}
                         />
                       </div>
 
                       {/* Email + submit */}
-                      <div style={{
+                      <div className="v11-email-row" style={{
                         display: "flex",
                         border: "4px solid #232629",
                         borderTop: "none",
@@ -1254,6 +1284,7 @@ export default function Version11() {
                           <Mail size={16} color="#FFF4ED" />
                         </div>
                         <input
+                          suppressHydrationWarning
                           type="email"
                           required
                           placeholder="YOUR EMAIL ADDRESS"
@@ -1270,13 +1301,16 @@ export default function Version11() {
                             fontSize: "0.85rem",
                             letterSpacing: "0.08em",
                             color: "#1E2A3B",
+                            minWidth: 0,
                           }}
                         />
                         <motion.button
+                          suppressHydrationWarning
                           type="submit"
                           disabled={isLoading}
                           whileHover={isLoading ? {} : { backgroundColor: "#D63232" }}
                           transition={{ duration: 0.15 }}
+                          className="v11-submit-btn"
                           style={{
                             padding: "12px 28px",
                             background: "#232629",
@@ -1293,6 +1327,7 @@ export default function Version11() {
                             alignItems: "center",
                             gap: 8,
                             opacity: isLoading ? 0.7 : 1,
+                            flexShrink: 0,
                           }}
                         >
                           {isLoading ? "SENDING..." : "SUBMIT"} {!isLoading && <Send size={16} />}
@@ -1344,16 +1379,15 @@ export default function Version11() {
             }}
           >
             <SectionReveal>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr",
-                  gap: 64,
-                  paddingBottom: 60,
-                  borderBottom: "4px solid #FFF4ED",
-                }}
-                className="md:!grid-cols-2"
-              >
+                <div
+                  style={{
+                    display: "grid",
+                    gap: 64,
+                    paddingBottom: 60,
+                    borderBottom: "4px solid #FFF4ED",
+                  }}
+                  className="!grid-cols-1 md:!grid-cols-2 v11-contact-grid"
+                >
                 {/* Left — Big CTA */}
                 <div>
                   <StampLabel rotate="-1.5deg" className="mb-6 inline-block">
@@ -1622,6 +1656,7 @@ export default function Version11() {
             }}
           >
             <div
+              className="v11-footer-bottom"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
