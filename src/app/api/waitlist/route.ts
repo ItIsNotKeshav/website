@@ -180,77 +180,88 @@ async function sendWelcomeEmail(toEmail: string, toName: string): Promise<void> 
 }
 
 export async function POST(request: Request) {
-  const contentType = request.headers.get("content-type") || "";
-  if (!contentType.includes("application/json")) {
-    return NextResponse.json({ error: "Invalid content type" }, { status: 415 });
-  }
-
-  let body: { email?: unknown; name?: unknown };
   try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
-  }
+    const contentType = request.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      return NextResponse.json({ error: "Invalid content type" }, { status: 415 });
+    }
 
-  const email = typeof body.email === "string" ? sanitizeString(body.email.toLowerCase()) : "";
-  const name = typeof body.name === "string" ? sanitizeString(body.name) : "";
+    let body: { email?: unknown; name?: unknown };
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    }
 
-  if (!email || !isValidEmail(email)) {
-    return NextResponse.json({ error: "Invalid email address" }, { status: 422 });
-  }
+    const email = typeof body.email === "string" ? sanitizeString(body.email.toLowerCase()) : "";
+    const name = typeof body.name === "string" ? sanitizeString(body.name) : "";
 
-  if (!name || name.length < 1) {
-    return NextResponse.json({ error: "Name is required" }, { status: 422 });
-  }
+    if (!email || !isValidEmail(email)) {
+      return NextResponse.json({ error: "Invalid email address" }, { status: 422 });
+    }
 
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    if (!name || name.length < 1) {
+      return NextResponse.json({ error: "Name is required" }, { status: 422 });
+    }
 
-  // Check for duplicate
-  const { data: existing } = await supabase
-    .from("waitlist")
-    .select("id")
-    .eq("email", email)
-    .maybeSingle();
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("Supabase env vars missing");
+      return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+    }
 
-  if (existing) {
-    return NextResponse.json(
-      { success: true, already_registered: true },
-      { status: 200 }
-    );
-  }
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  const row: Record<string, string> = {
-    email,
-    name,
-    signed_up_at: new Date().toISOString(),
-    source: "landing_page",
-  };
+    // Check for duplicate
+    const { data: existing } = await supabase
+      .from("waitlist")
+      .select("id")
+      .eq("email", email)
+      .maybeSingle();
 
-  const { error: insertError } = await supabase.from("waitlist").insert(row);
+    if (existing) {
+      return NextResponse.json(
+        { success: true, already_registered: true },
+        { status: 200 }
+      );
+    }
 
-  if (insertError) {
-    if (insertError.message?.includes("name")) {
-      const { error: err2 } = await supabase.from("waitlist").insert({
-        email: row.email,
-        signed_up_at: row.signed_up_at,
-        source: row.source,
-      });
-      if (err2) {
-        console.error("Waitlist insert error:", err2);
+    const row: Record<string, string> = {
+      email,
+      name,
+      signed_up_at: new Date().toISOString(),
+      source: "landing_page",
+    };
+
+    const { error: insertError } = await supabase.from("waitlist").insert(row);
+
+    if (insertError) {
+      if (insertError.message?.includes("name")) {
+        const { error: err2 } = await supabase.from("waitlist").insert({
+          email: row.email,
+          signed_up_at: row.signed_up_at,
+          source: row.source,
+        });
+        if (err2) {
+          console.error("Waitlist insert error:", err2);
+          return NextResponse.json({ error: "Database error" }, { status: 500 });
+        }
+      } else {
+        console.error("Waitlist insert error:", insertError);
         return NextResponse.json({ error: "Database error" }, { status: 500 });
       }
-    } else {
-      console.error("Waitlist insert error:", insertError);
-      return NextResponse.json({ error: "Database error" }, { status: 500 });
     }
+
+    // Send welcome email — non-blocking so signup always succeeds
+    sendWelcomeEmail(email, name).catch((err) =>
+      console.warn("Welcome email failed (non-blocking):", err)
+    );
+
+    return NextResponse.json({ success: true }, { status: 201 });
+
+  } catch (err) {
+    console.error("Unhandled error in /api/waitlist:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  // Send welcome email — non-blocking, failure won't reject the signup
-  sendWelcomeEmail(email, name).catch((err) =>
-    console.warn("Welcome email failed (non-blocking):", err)
-  );
-
-  return NextResponse.json({ success: true }, { status: 201 });
 }
 
 // Reject non-POST methods

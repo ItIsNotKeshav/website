@@ -53,6 +53,9 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
 
+  // nodemailer uses Node.js built-ins (net, tls, dns) that webpack can't bundle
+  serverExternalPackages: ["nodemailer"],
+
   async headers() {
     return [
       {
