@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import nodemailer from "nodemailer";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
@@ -160,14 +159,20 @@ async function sendWelcomeEmail(toEmail: string, toName: string): Promise<void> 
     return;
   }
 
+  // Dynamic import so a load failure is caught at runtime, not module init
+  const nodemailer = (await import("nodemailer")).default;
+
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // STARTTLS
+    port: 465,
+    secure: true, // SSL — more reliable on serverless than STARTTLS/587
     auth: {
       user: gmailUser,
-      pass: gmailAppPassword,
+      pass: gmailAppPassword.replace(/\s/g, ""), // strip any accidental spaces
     },
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 8000,
   });
 
   await transporter.sendMail({
@@ -177,6 +182,8 @@ async function sendWelcomeEmail(toEmail: string, toName: string): Promise<void> 
     html: buildEmailHtml(toName, toEmail),
     text: buildEmailText(toName),
   });
+
+  transporter.close();
 }
 
 export async function POST(request: Request) {
