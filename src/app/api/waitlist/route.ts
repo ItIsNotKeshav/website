@@ -258,10 +258,19 @@ export async function POST(request: Request) {
       }
     }
 
-    // Send welcome email — non-blocking so signup always succeeds
-    sendWelcomeEmail(email, name).catch((err) =>
-      console.warn("Welcome email failed (non-blocking):", err)
-    );
+    // Send welcome email — awaited so Vercel doesn't kill the function before it sends.
+    // Wrapped in a 9s timeout to stay within Vercel's 10s function limit.
+    try {
+      await Promise.race([
+        sendWelcomeEmail(email, name),
+        new Promise<void>((_, reject) =>
+          setTimeout(() => reject(new Error("Email timeout")), 9000)
+        ),
+      ]);
+    } catch (err) {
+      // Email failure is non-fatal — user is already on the waitlist
+      console.warn("Welcome email failed:", err);
+    }
 
     return NextResponse.json({ success: true }, { status: 201 });
 
