@@ -234,7 +234,11 @@ export default function Version11() {
           .v11-about-grid { gap: 32px !important; }
           .v11-contact-grid { gap: 32px !important; }
           .v11-footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+          .v11-feat-nav-desktop { display: none !important; }
+          .v11-feat-nav-mobile  { display: flex !important; margin-top: 20px; }
         }
+        .v11-feat-nav-desktop { display: flex; }
+        .v11-feat-nav-mobile  { display: none; }
       `}</style>
 
       <div
@@ -286,14 +290,7 @@ export default function Version11() {
             </a>
 
             {/* Desktop links */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0,
-              }}
-              className="hidden md:flex"
-            >
+            <div className="hidden md:flex items-center">
               {NAV_ITEMS.map((item, idx) => {
                 const isLast = idx === NAV_ITEMS.length - 1;
                 const isWaitlist = item.href === "#early-access-v11";
@@ -595,8 +592,8 @@ export default function Version11() {
                 </h2>
               </div>
 
-              {/* Nav buttons */}
-              <div style={{ display: "flex", gap: 8 }}>
+              {/* Nav buttons — hidden on mobile (shown below card instead) */}
+              <div className="v11-feat-nav-desktop" style={{ gap: 8 }}>
                 <button
                   suppressHydrationWarning
                   onClick={() => setFeatureIdx((p) => Math.max(0, p - 1))}
@@ -816,6 +813,40 @@ export default function Version11() {
               ) : null
             )}
           </AnimatePresence>
+
+          {/* Nav buttons — mobile only, shown below the card */}
+          <div className="v11-feat-nav-mobile" style={{ gap: 8 }}>
+            <button
+              suppressHydrationWarning
+              onClick={() => setFeatureIdx((p) => Math.max(0, p - 1))}
+              disabled={featureIdx === 0}
+              style={{
+                width: 48, height: 48, border: "3px solid",
+                borderColor: featureIdx === 0 ? "#E8D0C3" : "#232629",
+                background: featureIdx === 0 ? "#FFF4ED" : "#FFF9F6",
+                cursor: featureIdx === 0 ? "default" : "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.15s",
+              }}
+            >
+              <ArrowLeft size={20} color={featureIdx === 0 ? "#E8D0C3" : "#232629"} strokeWidth={2.5} />
+            </button>
+            <button
+              suppressHydrationWarning
+              onClick={() => setFeatureIdx((p) => Math.min(FEATURES.length - 1, p + 1))}
+              disabled={featureIdx === FEATURES.length - 1}
+              style={{
+                width: 48, height: 48, border: "3px solid",
+                borderColor: featureIdx === FEATURES.length - 1 ? "#E8D0C3" : "#D63232",
+                background: featureIdx === FEATURES.length - 1 ? "#FFF4ED" : "#FFF9F6",
+                cursor: featureIdx === FEATURES.length - 1 ? "default" : "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.15s",
+              }}
+            >
+              <ArrowRight size={20} color={featureIdx === FEATURES.length - 1 ? "#E8D0C3" : "#D63232"} strokeWidth={2.5} />
+            </button>
+          </div>
         </section>
 
         {/* ═══════ ABOUT ═══════ */}

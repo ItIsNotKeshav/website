@@ -13,6 +13,13 @@ export const metadata: Metadata = {
   description:
     "Optimize, refine, and manage prompts across all AI tools — without breaking your flow.",
   metadataBase: new URL("https://tryprmpt.com"),
+  icons: {
+    icon: [
+      { url: "/logos/dark-logo.png", type: "image/png" },
+      { url: "/logos/dark-logo-svg.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/logos/dark-logo.png",
+  },
   openGraph: {
     title: "Prmpt — Your AI is only as smart as your prompt",
     description:
