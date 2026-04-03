@@ -49,6 +49,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  turbopack: {},
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -72,12 +73,6 @@ const nextConfig: NextConfig = {
         hostname: "*.supabase.co",
       },
     ],
-  },
-
-  // Silence Webpack warnings from some Radix/ogl packages
-  webpack: (config) => {
-    config.resolve.fallback = { ...config.resolve.fallback, fs: false };
-    return config;
   },
 };
 
