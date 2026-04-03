@@ -50,10 +50,6 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   turbopack: {},
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
   // nodemailer uses Node.js built-ins (net, tls, dns) that webpack can't bundle
   serverExternalPackages: ["nodemailer"],
 
