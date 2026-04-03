@@ -11,6 +11,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://tryprmpt.com"),
 
+  icons: {
+    icon: [
+      { url: "/logos/dark-logo.png", type: "image/png" },
+      { url: "/logos/dark-logo-svg.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/logos/dark-logo.png",
+  },
+
   title: {
     default: "Prmpt — AI Prompt Optimization Tool",
     template: "%s | Prmpt",
@@ -33,7 +41,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Prmpt", url: "https://tryprmpt.com" }],
   creator: "Prmpt",
   publisher: "Prmpt",
-
   openGraph: {
     title: "Prmpt — AI Prompt Optimization Tool",
     description:
