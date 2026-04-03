@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Optimize, refine, and manage prompts across all AI tools with a system-wide overlay. Real-time prompt engineering for developers and AI power users.",
+    "Prmpt is an AI-powered workflow optimization tool that helps developers and everyday users get more done — smarter prompts, faster results, less friction.",
 
   keywords: [
     "prompt optimization",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Prmpt — AI Prompt Optimization Tool",
     description:
-      "Optimize, refine, and manage prompts across all AI tools with a system-wide overlay. Real-time prompt engineering without breaking your flow.",
+      "Stop fighting your AI tools. Prmpt optimizes your workflow so developers and everyone else can get smarter results, faster — without breaking their focus.",
     url: "https://tryprmpt.com",
     siteName: "Prmpt",
     images: [
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Prmpt — AI Prompt Optimization Tool",
     description:
-      "Optimize, refine, and manage prompts across all AI tools. Real-time prompt engineering without breaking your flow.",
+      "Stop fighting your AI tools. Prmpt streamlines your workflow for developers and everyday users — smarter results, less friction, more done.",
     images: ["/og-image.png"],
     // creator: "@yourhandle",
   },
@@ -93,7 +93,7 @@ const jsonLd = {
         url: "https://tryprmpt.com/logos/dark-logo-svg.svg",
       },
       description:
-        "Prmpt is an AI prompt optimization and management tool that lets you refine, save, and access prompts system-wide across all AI tools.",
+        "Prmpt is an AI-powered workflow optimization tool that helps developers and everyday users work smarter — streamlining how you interact with AI across any tool or platform.",
       sameAs: [],
     },
     {
@@ -102,7 +102,7 @@ const jsonLd = {
       url: "https://tryprmpt.com",
       name: "Prmpt",
       description:
-        "Optimize, refine, and manage prompts across all AI tools with a system-wide overlay.",
+        "AI workflow optimization for developers and everyday users. Work smarter, not harder — system-wide.",
       publisher: { "@id": "https://tryprmpt.com/#organization" },
       potentialAction: {
         "@type": "SearchAction",
@@ -120,7 +120,7 @@ const jsonLd = {
       applicationCategory: "ProductivityApplication",
       operatingSystem: "Windows, macOS",
       description:
-        "A system-wide AI prompt optimization tool with a persistent library, real-time refinement, and overlay access across all AI tools.",
+        "A system-wide AI workflow optimization tool that helps developers and general users streamline how they work with AI — real-time refinement, persistent access, zero friction.",
       url: "https://tryprmpt.com",
       publisher: { "@id": "https://tryprmpt.com/#organization" },
       offers: {
